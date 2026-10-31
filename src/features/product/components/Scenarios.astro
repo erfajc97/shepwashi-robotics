@@ -11,7 +11,7 @@ const mobileLabel = data.mobileLabel ?? (data.label ? data.label : 'Escenarios')
 const tall = data.scenes.length < 3;
 ---
 
-<section class="flex flex-col gap-5 rounded-lg bg-panel px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-12">
+<section class="flex flex-col gap-5 rounded-lg bg-panel px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-8">
   <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-8">
     <div class="flex flex-col gap-5">
       <NumberedLabel number={number} label={label} mobileLabel={mobileLabel} />
@@ -21,7 +21,7 @@ const tall = data.scenes.length < 3;
   </div>
   <ul class="flex flex-col gap-5 md:flex-row md:gap-4">
     {data.scenes.map((s) => (
-      <li class:list={['relative h-[220px] min-w-0 overflow-clip rounded-md bg-stage md:flex-1 md:rounded-lg', tall ? 'md:h-[480px]' : 'md:h-[420px]']}>
+      <li class:list={['relative h-[220px] min-w-0 overflow-clip rounded-md bg-stage md:flex-1 md:rounded-lg', tall ? 'md:h-[min(480px,30svh)]' : 'md:h-[min(420px,26svh)]']}>
         <img src={s.image} alt={s.alt ?? s.name} class="absolute inset-0 size-full object-cover" loading="lazy" />
         <ProductChip label={s.name} tone="white" class="absolute top-3 left-3 md:top-[18px] md:left-[18px]" />
       </li>

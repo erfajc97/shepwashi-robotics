@@ -29,8 +29,8 @@ const crumb = 'transition-opacity hover:opacity-80';
   </div>
 
   <div class="grid gap-3 md:gap-4 lg:grid-cols-[860fr_532fr]">
-    <div class="relative h-[420px] overflow-clip rounded-lg bg-stage md:h-auto md:min-h-[660px] md:rounded-xl">
-      <div class="absolute bottom-3 left-1/2 h-[365px] w-[320px] -translate-x-1/2 md:bottom-[30px] md:h-[559px] md:w-[490px]">
+    <div class="relative h-[min(420px,26svh)] overflow-clip rounded-lg bg-stage md:h-auto md:min-h-[min(660px,41svh)] md:rounded-xl">
+      <div class="absolute bottom-3 left-1/2 h-[min(365px,23svh)] w-[320px] -translate-x-1/2 md:bottom-[30px] md:h-[min(559px,35svh)] md:w-[490px]">
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_55%_55%_at_50%_66.7%,rgba(255,255,255,0.16),rgba(255,255,255,0))]"></div>
         <img src={hero.image} alt={hero.imageAlt ?? product.name} class="absolute inset-0 size-full object-contain" loading="eager" />
       </div>

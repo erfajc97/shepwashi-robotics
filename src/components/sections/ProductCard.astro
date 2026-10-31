@@ -31,7 +31,7 @@ const { name, tagline, taglineMobile, image, category, href, tone = 'surface', i
     className,
   ]}
 >
-  <div class="relative flex h-[340px] flex-col items-start overflow-clip rounded-md bg-stage pt-3 pl-3">
+  <div class="relative flex h-[min(340px,21svh)] flex-col items-start overflow-clip rounded-md bg-stage pt-3 pl-3">
     <div class="absolute inset-0 bg-radial-[at_50%_35%] from-white/16 to-transparent"></div>
     <ThemedImg src={image} alt={imageAlt ?? name} loading="lazy" decoding="async" class="absolute inset-0 size-full object-contain" />
     <CategoryTag label={category} tone="surface" class="relative" />

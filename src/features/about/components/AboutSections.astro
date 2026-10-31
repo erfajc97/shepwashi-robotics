@@ -20,12 +20,12 @@ const h2 = 'text-[28px] leading-[1.1] font-medium tracking-[-1.56px] md:text-[44
   </div>
 </header>
 
-<div class="h-[260px] overflow-hidden rounded-lg md:h-[560px] md:rounded-xl">
+<div class="h-[260px] overflow-hidden rounded-lg md:h-[min(560px,35svh)] md:rounded-xl">
   <img src="/assets/nosotros/hero.jpg" alt="Robots de Shepwashi Robotics en operación" class="size-full object-cover" />
 </div>
 
 <!-- 01 Lo que hacemos -->
-<section class="flex flex-col gap-4 rounded-lg bg-surface px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-12" aria-labelledby="que-hacemos">
+<section class="flex flex-col gap-4 rounded-lg bg-surface px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-8" aria-labelledby="que-hacemos">
   <div class="flex flex-col gap-5">
     <IndexedLabel index="01" label="Lo que hacemos" />
     <h2 id="que-hacemos" class:list={[h2, 'text-ink']}>Software, IA y robots,<br class="hidden md:inline" /> en una sola implementación.</h2>
@@ -45,7 +45,7 @@ const h2 = 'text-[28px] leading-[1.1] font-medium tracking-[-1.56px] md:text-[44
 </section>
 
 <!-- 02 Respaldo de fábrica -->
-<section class="flex flex-col gap-4 rounded-lg bg-panel px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-12" aria-labelledby="respaldo">
+<section class="flex flex-col gap-4 rounded-lg bg-panel px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-8" aria-labelledby="respaldo">
   <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
     <div class="flex flex-col gap-5">
       <IndexedLabel index="02" label="Respaldo de fábrica" tone="on-dark" />
@@ -74,7 +74,7 @@ const h2 = 'text-[28px] leading-[1.1] font-medium tracking-[-1.56px] md:text-[44
 </section>
 
 <!-- 03 Tecnología -->
-<section class="flex flex-col gap-4 rounded-lg bg-surface px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-12" aria-labelledby="tecnologia">
+<section class="flex flex-col gap-4 rounded-lg bg-surface px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-8" aria-labelledby="tecnologia">
   <div class="flex items-start justify-between">
     <div class="flex flex-col gap-5 md:pt-28">
       <IndexedLabel index="03" label="Tecnología" />
@@ -99,7 +99,7 @@ const h2 = 'text-[28px] leading-[1.1] font-medium tracking-[-1.56px] md:text-[44
 </section>
 
 <!-- 04 Presencia -->
-<section class="flex flex-col gap-4 rounded-lg bg-surface px-5 pt-9 pb-5 md:flex-row md:gap-16 md:rounded-xl md:px-12 md:pt-[72px] md:pb-14" aria-labelledby="presencia">
+<section class="flex flex-col gap-4 rounded-lg bg-surface px-5 pt-9 pb-5 md:flex-row md:gap-16 md:rounded-xl md:px-12 md:pt-[72px] md:pb-8" aria-labelledby="presencia">
   <div class="flex flex-col gap-5 md:w-[553px] md:shrink-0">
     <IndexedLabel index="04" label="Presencia" />
     <h2 id="presencia" class:list={[h2, 'text-ink']}>Cerca de tu operación.</h2>

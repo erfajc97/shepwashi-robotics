@@ -15,7 +15,7 @@ const { product } = Astro.props;
   data-categoria={product.categoria}
   class="group flex flex-col rounded-lg bg-surface px-2 pt-2 pb-3.5 transition-transform hover:-translate-y-0.5 md:bg-surface-2 md:pb-5 max-md:data-[extra=true]:hidden"
 >
-  <div class="catalog-glow relative flex h-[340px] flex-col items-start overflow-clip rounded-md bg-stage pt-3 pl-3">
+  <div class="catalog-glow relative flex h-[min(340px,21svh)] flex-col items-start overflow-clip rounded-md bg-stage pt-3 pl-3">
     <ThemedImg src={product.imagen} alt={product.nombre} loading="lazy" class="absolute inset-0 size-full rounded-md object-contain" />
     <span class="relative hidden items-center gap-2 rounded-pill bg-surface py-2 pr-3.5 pl-3 font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] whitespace-nowrap text-ink uppercase md:flex">
       <span class="size-1.5 shrink-0 rounded-pill bg-gold"></span>

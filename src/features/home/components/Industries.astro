@@ -6,20 +6,20 @@ import SectionHeader from '@/components/sections/SectionHeader.astro';
 import { industries, industriesCopy as c } from '@/app/data/home';
 ---
 
-<section class="flex flex-col gap-7 rounded-lg bg-surface px-5 pt-10 pb-6 lg:gap-10 lg:rounded-xl lg:px-12 lg:pt-18 lg:pb-12">
+<section class="flex flex-col gap-7 rounded-lg bg-surface px-5 pt-7 pb-5 lg:gap-10 lg:rounded-xl lg:px-12 lg:pt-12 lg:pb-8">
   <SectionHeader index="04" label={c.label} title={c.title} titleMobile={c.titleMobile}>
     <div slot="action" class="hidden lg:block">
       <Button label={c.cta.label} href={c.cta.href} variant="secondary" />
     </div>
   </SectionHeader>
 
-  <ul class="grid grid-cols-2 gap-[9px] sm:grid-cols-3 lg:grid-cols-5 lg:gap-[18px]">
+  <ul class="-mx-5 flex snap-x snap-mandatory gap-[9px] overflow-x-auto px-5 lg:mx-0 lg:grid lg:snap-none lg:grid-cols-5 lg:gap-[18px] lg:overflow-visible lg:px-0">
     {
       industries.map((it, i) => (
-        <li>
+        <li class="w-[150px] shrink-0 snap-start lg:w-auto">
           <a
             href={`/soluciones/${it.slug}`}
-            class="group relative flex h-[180px] flex-col justify-end overflow-clip rounded-md p-3 lg:h-80 lg:rounded-lg lg:p-[18px]"
+            class="group relative flex h-[180px] flex-col justify-end overflow-clip rounded-md p-3 lg:h-[min(320px,38svh)] lg:rounded-lg lg:p-[18px]"
           >
             <img
               src={it.image}

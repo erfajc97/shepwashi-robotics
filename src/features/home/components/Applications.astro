@@ -9,11 +9,11 @@ import { applications, applicationsCopy as c } from '@/app/data/home';
 const [main, ...rest] = applications;
 ---
 
-<section class="flex flex-col gap-7 rounded-lg bg-surface px-5 pt-10 pb-6 lg:gap-10 lg:rounded-xl lg:px-12 lg:pt-18 lg:pb-12">
+<section class="flex flex-col gap-7 rounded-lg bg-surface px-5 pt-7 pb-5 lg:gap-10 lg:rounded-xl lg:px-12 lg:pt-12 lg:pb-8">
   <SectionHeader index="05" label={c.label} title={c.title} description={c.description} />
 
   <div class="flex flex-col gap-7 lg:grid lg:grid-cols-2 lg:gap-4">
-    <a href={c.href} class="group relative flex h-[400px] flex-col justify-end overflow-clip rounded-md p-3.5 lg:h-[640px] lg:min-w-0 lg:rounded-lg lg:p-5">
+    <a href={c.href} class="group relative flex h-[min(400px,48svh)] flex-col justify-end overflow-clip rounded-md p-3.5 lg:h-[min(640px,62svh)] lg:min-w-0 lg:rounded-lg lg:p-5">
       <img src={main.image} alt="" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105" />
       <span class="shade-main absolute inset-0"></span>
       <CategoryTag label={main.tag} tone="white" class="absolute top-3.5 left-3.5 lg:top-4 lg:left-4" />
@@ -34,7 +34,7 @@ const [main, ...rest] = applications;
       {
         rest.map((a) => (
           <li>
-            <a href={c.href} class="group relative flex h-[312px] flex-col justify-end overflow-clip rounded-lg p-5">
+            <a href={c.href} class="group relative flex h-[min(312px,30svh)] flex-col justify-end overflow-clip rounded-lg p-5">
               <img src={a.image} alt="" loading="lazy" class="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105" />
               <span class="shade-main absolute inset-0"></span>
               <CategoryTag label={a.tag} tone="white" class="absolute top-4 left-4" />

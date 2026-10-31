@@ -24,7 +24,7 @@ const { items, number, label = 'Relacionados', title = 'Otros modelos' } = Astro
       {items.map((p, i) => (
         <li class:list={['w-[240px] shrink-0 md:w-auto', i >= 3 && 'max-md:hidden']}>
           <a href={p.href} class="group flex h-full flex-col rounded-lg bg-surface px-2 pt-2 pb-5">
-            <div class="relative h-[340px] overflow-clip rounded-md bg-stage">
+            <div class="relative h-[min(340px,21svh)] overflow-clip rounded-md bg-stage">
               <div class="absolute inset-0 bg-[radial-gradient(ellipse_150px_170px_at_50%_66.7%,rgba(255,255,255,0.16),rgba(255,255,255,0))]"></div>
               <ThemedImg src={p.image} alt={p.name} class="absolute inset-0 size-full object-contain" loading="lazy" />
               <ProductChip label={p.category} tone="filled" class="absolute top-3 left-3" />

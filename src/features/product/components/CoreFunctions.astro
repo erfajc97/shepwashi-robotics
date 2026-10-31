@@ -9,7 +9,7 @@ const cols = { 2: 'md:grid-cols-2', 3: 'md:grid-cols-2 lg:grid-cols-3', 4: 'md:g
 const num = (f: { number?: string }, i: number) => f.number ?? String(i + 1).padStart(2, '0');
 ---
 
-<section class="flex flex-col gap-5 rounded-lg bg-surface px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-12">
+<section class="flex flex-col gap-5 rounded-lg bg-surface px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-8">
   <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
     <div class="flex flex-col gap-5">
       <NumberedLabel number={number} label={data.label ?? 'Funciones principales'} />

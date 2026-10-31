@@ -6,7 +6,7 @@ interface Props { data: SolutionData['howItWorks']; label: string }
 const { data, label } = Astro.props;
 ---
 
-<section class="flex flex-col gap-[18px] rounded-lg bg-surface px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-12">
+<section class="flex flex-col gap-[18px] rounded-lg bg-surface px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-8">
   <div class="flex flex-col gap-[18px] md:flex-row md:items-end md:justify-between md:gap-0">
     <div class="flex flex-col gap-[18px] md:w-[760px] md:gap-5">
       <SolutionLabel index="01" label={label} />
@@ -14,5 +14,5 @@ const { data, label } = Astro.props;
     </div>
     <p class="text-[14px] leading-normal text-muted md:w-[420px] md:text-[16px] md:leading-[25px] md:tracking-[-0.032px]">{data.description}</p>
   </div>
-  <img src={data.image.src} alt={data.image.alt} loading="lazy" class="h-[210px] w-full rounded-md object-cover md:h-[760px] md:rounded-lg" />
+  <img src={data.image.src} alt={data.image.alt} loading="lazy" class="h-[210px] w-full rounded-md object-cover md:h-[min(760px,48svh)] md:rounded-lg" />
 </section>

@@ -15,7 +15,7 @@ const left = story.imageSide === 'left';
 
 <article
   data-story={story.filter}
-  class="grid gap-[18px] rounded-lg bg-surface p-2 pb-5 md:h-[600px] md:grid-cols-[760fr_632fr] md:gap-4 md:rounded-none md:bg-transparent md:p-0 [&[hidden]]:hidden"
+  class="grid gap-[18px] rounded-lg bg-surface p-2 pb-5 md:h-[min(600px,38svh)] md:grid-cols-[760fr_632fr] md:gap-4 md:rounded-none md:bg-transparent md:p-0 [&[hidden]]:hidden"
 >
   <div class:list={['relative h-[240px] overflow-hidden rounded-md md:h-auto md:rounded-xl', !left && 'md:order-2']}>
     <img src={story.image} alt={story.title} loading="lazy" class="absolute inset-0 size-full object-cover" />

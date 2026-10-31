@@ -9,7 +9,7 @@ const { product, class: className } = Astro.props;
 ---
 
 <a href={product.href} class:list={['group flex flex-col rounded-lg bg-surface px-2 pt-2 pb-5', className]}>
-  <div class="relative flex h-[340px] flex-col items-start overflow-hidden rounded-md bg-stage pt-3 pl-3">
+  <div class="relative flex h-[min(340px,21svh)] flex-col items-start overflow-hidden rounded-md bg-stage pt-3 pl-3">
     <ThemedImg src={product.imagen} alt={product.nombre} loading="lazy" class="absolute inset-0 size-full object-contain" />
     <span class="relative inline-flex items-center gap-2 rounded-pill bg-surface py-2 pr-3.5 pl-3 font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] text-ink uppercase">
       <span class="size-1.5 rounded-pill bg-gold"></span>{categoryLabel(product.categoria)}

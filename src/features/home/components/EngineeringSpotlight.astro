@@ -7,7 +7,7 @@ import IconCircle from '@/components/sections/IconCircle.astro';
 import { spotlight as s } from '@/app/data/home';
 ---
 
-<section class="flex flex-col gap-7 rounded-lg bg-panel px-5 pt-10 pb-6 lg:gap-12 lg:rounded-xl lg:px-12 lg:pt-18 lg:pb-12">
+<section class="flex flex-col gap-7 rounded-lg bg-panel px-5 pt-7 pb-5 lg:gap-12 lg:rounded-xl lg:px-12 lg:pt-12 lg:pb-8">
   <SectionHeader
     index="03"
     label={s.label}
@@ -20,7 +20,7 @@ import { spotlight as s } from '@/app/data/home';
   />
   <p class="text-[15px] leading-[1.55] tracking-[-0.03px] text-on-dark-muted lg:hidden">{s.descriptionMobile}</p>
 
-  <div class="relative h-[240px] overflow-clip rounded-md lg:h-[560px] lg:rounded-lg">
+  <div class="relative h-[240px] overflow-clip rounded-md lg:h-[min(560px,35svh)] lg:rounded-lg">
     <img src={s.image.src} alt={s.image.alt} loading="lazy" class="absolute inset-0 size-full object-cover" />
     <!-- Panel de vidrio · escritorio -->
     <div class="absolute top-6 right-6 hidden w-[560px] flex-col gap-4 rounded-lg bg-white p-5 text-navy backdrop-blur-2xl lg:flex">

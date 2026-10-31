@@ -13,9 +13,9 @@ const number = String(index + 1).padStart(2, '0');
 <a
   href={`/soluciones/${item.slug}`}
   class:list={[
-    'group relative isolate block h-[300px] overflow-hidden rounded-lg bg-surface md:rounded-xl',
+    'group relative isolate block h-[min(300px,19svh)] overflow-hidden rounded-lg bg-surface md:rounded-xl',
     wide ? 'md:col-span-3' : 'md:col-span-2',
-    tall ? 'md:h-[560px]' : 'md:h-[440px]',
+    tall ? 'md:h-[min(560px,35svh)]' : 'md:h-[min(440px,28svh)]',
   ]}
   aria-label={`${item.name}: ${item.tagline}`}
 >
