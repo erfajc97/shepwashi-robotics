@@ -1,0 +1,37 @@
+---
+// Home · Modelos destacados (Figma 2:13838). Escritorio: rejilla 4×2 sin fondo; móvil: carrusel
+// horizontal de 3 tarjetas sobre panel surface. Datos: `products.ts` (+ overrides de copy en home.ts).
+import Button from '@/components/ui/Button.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import ProductCard from '@/components/sections/ProductCard.astro';
+import { categoryLabel } from '@/app/data/products';
+import { featuredCopy as c, featuredProducts } from '@/app/data/home';
+---
+
+<section class="flex flex-col gap-7 rounded-lg bg-surface pt-10 pb-6 pl-5 lg:gap-10 lg:rounded-none lg:bg-transparent lg:px-12 lg:pt-18 lg:pb-12">
+  <SectionHeader index="02" label={c.label} title={c.title} class="pr-5 lg:pr-0">
+    <div slot="action" class="hidden lg:block">
+      <Button label={c.cta.label} href={c.cta.href} variant="secondary" />
+    </div>
+  </SectionHeader>
+
+  <div class="flex snap-x snap-mandatory gap-3 overflow-x-auto pr-5 [scrollbar-width:none] lg:grid lg:snap-none lg:grid-cols-4 lg:items-start lg:gap-4 lg:overflow-visible lg:pr-0 [&::-webkit-scrollbar]:hidden">
+    {
+      featuredProducts.map(({ product, tagline, taglineMobile }, i) => (
+        <ProductCard
+          name={product.nombre}
+          tagline={tagline}
+          taglineMobile={taglineMobile}
+          image={product.imagen}
+          category={categoryLabel(product.categoria)}
+          href={product.href}
+          class:list={['w-[260px] shrink-0 snap-start max-lg:bg-surface-2 lg:w-auto', i >= 3 && 'max-lg:hidden']}
+        />
+      ))
+    }
+  </div>
+
+  <div class="pr-5 lg:hidden">
+    <Button label={c.cta.label} href={c.cta.href} variant="secondary" class="w-full justify-between" />
+  </div>
+</section>

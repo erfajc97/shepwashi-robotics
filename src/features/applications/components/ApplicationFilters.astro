@@ -1,0 +1,27 @@
+---
+import { applicationFilters } from '@/app/data/applications';
+---
+
+<div class="hidden gap-2 overflow-x-auto pl-8 md:flex" role="tablist" aria-label="Filtrar por industria" data-app-filters>
+  {applicationFilters.map((f, i) => (
+    <button
+      type="button"
+      role="tab"
+      data-filter={f}
+      aria-selected={i === 0 ? 'true' : 'false'}
+      class="shrink-0 cursor-pointer rounded-pill bg-surface px-[18px] py-2.5 text-[15px] leading-[1.2] font-medium tracking-[-0.2px] whitespace-nowrap text-ink transition-colors aria-selected:bg-ink aria-selected:text-inverse"
+    >{f}</button>
+  ))}
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-app-filters]');
+  const stories = document.querySelectorAll<HTMLElement>('[data-story]');
+  bar?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-filter]');
+    if (!btn) return;
+    const value = btn.dataset.filter;
+    bar.querySelectorAll('button').forEach((b) => b.setAttribute('aria-selected', String(b === btn)));
+    stories.forEach((s) => { s.hidden = value !== 'Todas' && s.dataset.story !== value; });
+  });
+</script>

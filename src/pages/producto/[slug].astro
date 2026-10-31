@@ -1,0 +1,43 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import { productDetails, type ProductDetail } from '@/app/data/productDetails';
+import { getRelatedCards } from '@/features/product/related';
+import ProductHero from '@/features/product/components/ProductHero.astro';
+import FunctionsBand from '@/features/product/components/FunctionsBand.astro';
+import CoreFunctions from '@/features/product/components/CoreFunctions.astro';
+import Scenarios from '@/features/product/components/Scenarios.astro';
+import Specs from '@/features/product/components/Specs.astro';
+import Related from '@/features/product/components/Related.astro';
+import ProductCta from '@/features/product/components/ProductCta.astro';
+
+export function getStaticPaths() {
+  return productDetails.map((product) => ({ params: { slug: product.slug }, props: { product } }));
+}
+
+interface Props { product: ProductDetail }
+const { product } = Astro.props;
+
+// Numeración automática de secciones según las presentes.
+let n = 0;
+const next = () => String(++n).padStart(2, '0');
+const nCore = product.coreFunctions ? next() : '';
+const nScenarios = product.scenarios ? next() : '';
+const nSpecs = product.specs ? next() : '';
+const nRelated = next();
+const related = getRelatedCards(product);
+
+const title = product.seo?.title ?? `${product.name} — ${product.tagline} | Shepwashi Robotics`;
+const description = product.seo?.description ?? product.hero.summary;
+---
+
+<PublicLayout title={title} description={description}>
+  <div class="flex flex-col gap-3 pb-4 md:gap-4">
+    <ProductHero product={product} />
+    {product.functionsBand && <FunctionsBand band={product.functionsBand} />}
+    {product.coreFunctions && <CoreFunctions data={product.coreFunctions} number={nCore} />}
+    {product.scenarios && <Scenarios data={product.scenarios} number={nScenarios} />}
+    {product.specs && <Specs data={product.specs} number={nSpecs} />}
+    <Related items={related} number={nRelated} label={product.related?.label} title={product.related?.title} />
+    <ProductCta data={product.cta} />
+  </div>
+</PublicLayout>

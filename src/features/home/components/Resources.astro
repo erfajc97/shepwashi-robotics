@@ -1,0 +1,40 @@
+---
+// Home · Recursos (Figma 2:14065). 3 artículos en escritorio, 2 en móvil.
+import Button from '@/components/ui/Button.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import CategoryTag from '@/components/sections/CategoryTag.astro';
+import { posts, resourcesCopy as c } from '@/app/data/home';
+---
+
+<section class="flex flex-col gap-7 rounded-lg bg-surface px-5 pt-10 pb-6 lg:gap-10 lg:rounded-xl lg:px-12 lg:pt-18 lg:pb-12">
+  <SectionHeader index="07" label={c.label} title={c.title}>
+    <div slot="action" class="hidden lg:block">
+      <Button label={c.cta.label} href={c.cta.href} variant="secondary" />
+    </div>
+  </SectionHeader>
+
+  <div class="grid gap-7 lg:grid-cols-3 lg:items-start lg:gap-4">
+    {
+      posts.map((p, i) => (
+        <a href={`/recursos/${p.slug}`} class:list={['group flex flex-col gap-3.5 lg:gap-[18px]', i === 2 && 'hidden lg:flex']}>
+          <div class="h-[200px] overflow-clip rounded-md lg:h-[280px] lg:rounded-lg">
+            <img
+              src={p.image}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+          <div class="flex items-center gap-2.5 lg:gap-3">
+            <CategoryTag label={p.category} tone="outline" />
+            <span class="font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] text-muted uppercase">{p.date}</span>
+          </div>
+          <h3 class="text-[21px] leading-[1.2] font-medium tracking-[-0.21px] text-ink lg:leading-[1.25]">{p.title}</h3>
+        </a>
+      ))
+    }
+  </div>
+
+  <Button label={c.cta.label} href={c.cta.href} variant="secondary" class="w-full justify-between lg:hidden" />
+</section>

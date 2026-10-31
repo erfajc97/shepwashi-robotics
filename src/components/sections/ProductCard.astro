@@ -1,0 +1,55 @@
+---
+import ThemedImg from '@/components/ui/ThemedImg.astro';
+// Product Card (Design System · design-system/product-card). Tarjeta de producto con imagen sobre
+// "stage" + degradado radial, chip de categoría y botón-círculo. Es un enlace completo.
+import CategoryTag from './CategoryTag.astro';
+import IconCircle from './IconCircle.astro';
+
+interface Props {
+  name: string;
+  tagline: string;
+  /** Tagline alterno para móvil (<lg) cuando el copy del diseño difiere */
+  taglineMobile?: string;
+  /** Ruta de la imagen (PNG con transparencia recomendado) */
+  image: string;
+  /** Texto del chip de categoría, p. ej. "Recepción" */
+  category: string;
+  href: string;
+  /** Fondo de la tarjeta: surface (escritorio) · surface-2 (sobre paneles surface, móvil) */
+  tone?: 'surface' | 'surface-2';
+  imageAlt?: string;
+  class?: string;
+}
+const { name, tagline, taglineMobile, image, category, href, tone = 'surface', imageAlt, class: className } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={[
+    'group flex flex-col rounded-lg px-2 pt-2 pb-5 transition-transform hover:-translate-y-0.5',
+    tone === 'surface' ? 'bg-surface' : 'bg-surface-2',
+    className,
+  ]}
+>
+  <div class="relative flex h-[340px] flex-col items-start overflow-clip rounded-md bg-stage pt-3 pl-3">
+    <div class="absolute inset-0 bg-radial-[at_50%_35%] from-white/16 to-transparent"></div>
+    <ThemedImg src={image} alt={imageAlt ?? name} loading="lazy" decoding="async" class="absolute inset-0 size-full object-contain" />
+    <CategoryTag label={category} tone="surface" class="relative" />
+  </div>
+  <div class="flex items-center justify-between pt-[18px] pr-2 pl-3">
+    <div class="flex min-w-px flex-1 flex-col gap-1">
+      <p class="text-[21px] leading-[1.25] font-medium tracking-[-0.21px] text-ink">{name}</p>
+      <p class="text-[14px] leading-normal text-muted">
+        {taglineMobile ? (
+          <>
+            <span class="lg:hidden">{taglineMobile}</span>
+            <span class="hidden lg:inline">{tagline}</span>
+          </>
+        ) : (
+          tagline
+        )}
+      </p>
+    </div>
+    <IconCircle tone="outline" class="transition-colors group-hover:bg-ink group-hover:text-canvas" />
+  </div>
+</a>

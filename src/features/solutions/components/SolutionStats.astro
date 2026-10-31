@@ -1,0 +1,15 @@
+---
+import type { SolutionStat } from '@/app/data/solutions';
+
+interface Props { stats: SolutionStat[] }
+const { stats } = Astro.props;
+---
+
+<section class="grid grid-cols-2 rounded-lg bg-surface px-5 py-2 md:grid-cols-4 md:rounded-xl md:px-12 md:py-10" aria-label="Resultados">
+  {stats.map((s) => (
+    <div class="flex flex-col gap-1.5 py-4 pr-2 md:gap-3 md:border-l md:border-line md:py-0 md:pr-4 md:pl-8 md:first:border-l-0 md:first:pl-0">
+      <p class="font-mono text-[32px] leading-none tracking-[-0.96px] whitespace-nowrap text-ink md:text-[44px] md:tracking-[-1.76px]">{s.value}</p>
+      <p class="text-[14px] leading-normal text-muted">{s.label}</p>
+    </div>
+  ))}
+</section>

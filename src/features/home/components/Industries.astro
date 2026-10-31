@@ -1,0 +1,67 @@
+---
+// Home · Soluciones por industria (Figma 2:13902). Rejilla de 10 fotos con degradado oscuro:
+// escritorio 5×2 con cifra + descripción; móvil 2 columnas solo con nombre.
+import Button from '@/components/ui/Button.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import { industries, industriesCopy as c } from '@/app/data/home';
+---
+
+<section class="flex flex-col gap-7 rounded-lg bg-surface px-5 pt-10 pb-6 lg:gap-10 lg:rounded-xl lg:px-12 lg:pt-18 lg:pb-12">
+  <SectionHeader index="04" label={c.label} title={c.title} titleMobile={c.titleMobile}>
+    <div slot="action" class="hidden lg:block">
+      <Button label={c.cta.label} href={c.cta.href} variant="secondary" />
+    </div>
+  </SectionHeader>
+
+  <ul class="grid grid-cols-2 gap-[9px] sm:grid-cols-3 lg:grid-cols-5 lg:gap-[18px]">
+    {
+      industries.map((it, i) => (
+        <li>
+          <a
+            href={`/soluciones/${it.slug}`}
+            class="group relative flex h-[180px] flex-col justify-end overflow-clip rounded-md p-3 lg:h-80 lg:rounded-lg lg:p-[18px]"
+          >
+            <img
+              src={it.image}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              class="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <span class="shade absolute inset-0"></span>
+            <span class="absolute top-3 left-3 font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] text-white uppercase lg:top-[18px] lg:left-[18px]">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <span class="relative flex flex-col gap-1.5">
+              <span class="hidden font-mono text-[14px] leading-[1.35] text-gold-soft lg:block">{it.metric}</span>
+              <span class="text-[17px] leading-[1.3] font-medium tracking-[-0.085px] text-white lg:text-[21px] lg:leading-[1.25] lg:tracking-[-0.21px]">{it.name}</span>
+              <span class="hidden text-[14px] leading-normal text-white lg:block">{it.caption}</span>
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  /* Degradado del Figma (#050f1f ≈ navy fijo). Móvil: 0 → 88 %; escritorio: velo superior + base 92 %. */
+  .shade {
+    background: linear-gradient(
+      to bottom,
+      transparent 35%,
+      color-mix(in srgb, var(--c-navy) 88%, transparent) 100%
+    );
+  }
+  @media (min-width: 1024px) {
+    .shade {
+      background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--c-navy) 35%, transparent) 0%,
+        transparent 30%,
+        color-mix(in srgb, var(--c-navy) 10%, transparent) 50%,
+        color-mix(in srgb, var(--c-navy) 92%, transparent) 100%
+      );
+    }
+  }
+</style>

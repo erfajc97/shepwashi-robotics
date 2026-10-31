@@ -1,0 +1,46 @@
+---
+import ThemedImg from '@/components/ui/ThemedImg.astro';
+import Icon from '@/components/ui/Icon.astro';
+import Button from '@/components/ui/Button.astro';
+import NumberedLabel from './NumberedLabel.astro';
+import ProductChip from './ProductChip.astro';
+import type { RelatedCard } from '../related';
+
+interface Props { items: RelatedCard[]; number: string; label?: string; title?: string }
+const { items, number, label = 'Relacionados', title = 'Otros modelos' } = Astro.props;
+---
+
+{items.length > 0 && (
+  <section class="flex flex-col gap-4 pt-7 pb-2 pl-1 md:gap-8 md:px-8 md:pt-14 md:pb-6">
+    <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-6">
+      <div class="flex flex-col gap-5">
+        <NumberedLabel number={number} label={label} />
+        <h2 class="text-[28px] leading-[1.1] font-medium tracking-[-0.56px] text-ink md:text-[56px] md:leading-[1.02] md:tracking-[-1.68px]">{title}</h2>
+      </div>
+      <Button label="Ver catálogo completo" href="/catalogo" variant="secondary" class="self-start max-md:hidden" />
+    </div>
+    <!-- Móvil: carrusel horizontal de 3 tarjetas de 240 px. Escritorio: 4 en rejilla. -->
+    <ul class="-mr-4 flex gap-2.5 overflow-x-auto pr-4 md:mr-0 md:grid md:grid-cols-2 md:gap-4 md:overflow-visible md:pr-0 lg:grid-cols-4">
+      {items.map((p, i) => (
+        <li class:list={['w-[240px] shrink-0 md:w-auto', i >= 3 && 'max-md:hidden']}>
+          <a href={p.href} class="group flex h-full flex-col rounded-lg bg-surface px-2 pt-2 pb-5">
+            <div class="relative h-[340px] overflow-clip rounded-md bg-stage">
+              <div class="absolute inset-0 bg-[radial-gradient(ellipse_150px_170px_at_50%_66.7%,rgba(255,255,255,0.16),rgba(255,255,255,0))]"></div>
+              <ThemedImg src={p.image} alt={p.name} class="absolute inset-0 size-full object-contain" loading="lazy" />
+              <ProductChip label={p.category} tone="filled" class="absolute top-3 left-3" />
+            </div>
+            <div class="flex items-center justify-between gap-3 pt-[18px] pr-2 pl-3">
+              <div class="flex min-w-0 flex-col gap-1">
+                <h3 class="text-[21px] leading-[1.25] font-medium tracking-[-0.21px] text-ink">{p.name}</h3>
+                <p class="text-[14px] leading-[1.5] text-muted">{p.tagline}</p>
+              </div>
+              <span class="grid size-11 shrink-0 place-items-center rounded-pill border border-ink text-ink transition-colors group-hover:bg-ink group-hover:text-canvas">
+                <Icon name="arrow-right" size={18} />
+              </span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

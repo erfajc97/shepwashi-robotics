@@ -1,0 +1,53 @@
+---
+import ThemedImg from '@/components/ui/ThemedImg.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { categoryLabel, type Product } from '@/app/data/products';
+
+interface Props { product: Product }
+const { product } = Astro.props;
+---
+
+<!-- Figma: Product Card (1:300). Móvil: tarjeta compacta sin badge de categoría ni botón; escritorio: completa. -->
+<a
+  href={product.href}
+  data-catalog-card
+  data-slug={product.slug}
+  data-categoria={product.categoria}
+  class="group flex flex-col rounded-lg bg-surface px-2 pt-2 pb-3.5 transition-transform hover:-translate-y-0.5 md:bg-surface-2 md:pb-5 max-md:data-[extra=true]:hidden"
+>
+  <div class="catalog-glow relative flex h-[340px] flex-col items-start overflow-clip rounded-md bg-stage pt-3 pl-3">
+    <ThemedImg src={product.imagen} alt={product.nombre} loading="lazy" class="absolute inset-0 size-full rounded-md object-contain" />
+    <span class="relative hidden items-center gap-2 rounded-pill bg-surface py-2 pr-3.5 pl-3 font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] whitespace-nowrap text-ink uppercase md:flex">
+      <span class="size-1.5 shrink-0 rounded-pill bg-gold"></span>
+      {categoryLabel(product.categoria)}
+    </span>
+    {product.nuevo && (
+      <span class="relative mt-2 rounded-pill bg-gold px-3 py-1.5 font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] text-on-gold uppercase">Nuevo</span>
+    )}
+  </div>
+  <div class="flex items-center justify-between pt-3 pr-0 pl-1.5 md:pt-[18px] md:pr-2 md:pl-3">
+    <div class="flex min-w-px flex-1 flex-col gap-1">
+      <p class="text-[17px] leading-[1.3] font-medium tracking-[-0.085px] text-ink md:text-[21px] md:leading-tight md:tracking-[-0.21px]">{product.nombre}</p>
+      <p class="text-[12.5px] leading-normal text-muted md:text-[14px]">{product.tagline}</p>
+      {product.etiquetas.length > 0 && (
+        <ul class="mt-1 flex flex-wrap gap-1.5">
+          {product.etiquetas.map((e) => <li class="rounded-pill border border-line px-2.5 py-1 text-[12px] text-ink-2">{e}</li>)}
+        </ul>
+      )}
+    </div>
+    <span class="hidden size-11 shrink-0 place-items-center rounded-pill border border-ink text-ink transition-colors group-hover:bg-ink group-hover:text-inverse md:grid">
+      <Icon name="arrow-right" size={16} />
+    </span>
+  </div>
+</a>
+
+<style>
+  /* Brillo radial del Figma: blanco 16% -> 0%, centro (50%, 66.7%), radio 55.6% del alto/ancho. */
+  .catalog-glow {
+    background-image: radial-gradient(
+      ellipse 55.6% 55.6% at 50% 66.7%,
+      rgb(255 255 255 / 0.16),
+      rgb(255 255 255 / 0)
+    );
+  }
+</style>

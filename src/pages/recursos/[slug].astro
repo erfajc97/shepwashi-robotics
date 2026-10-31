@@ -1,0 +1,14 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import ArticleView from '@/features/article/components/ArticleView.astro';
+import { articles } from '@/app/data/articles';
+
+export function getStaticPaths() {
+  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+}
+const { article } = Astro.props;
+---
+
+<PublicLayout title={`${article.title} | Shepwashi Robotics`} description={article.summary}>
+  <ArticleView article={article} />
+</PublicLayout>

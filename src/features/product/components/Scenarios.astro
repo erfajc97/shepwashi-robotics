@@ -1,0 +1,30 @@
+---
+import type { ProductDetail } from '@/app/data/productDetails';
+import NumberedLabel from './NumberedLabel.astro';
+import ProductChip from './ProductChip.astro';
+
+interface Props { data: NonNullable<ProductDetail['scenarios']>; number: string }
+const { data, number } = Astro.props;
+const label = data.label ?? 'Escenarios de aplicación';
+const mobileLabel = data.mobileLabel ?? (data.label ? data.label : 'Escenarios');
+// Con 3+ escenas el Figma las muestra más bajas (420) que con 2 (480).
+const tall = data.scenes.length < 3;
+---
+
+<section class="flex flex-col gap-5 rounded-lg bg-panel px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-12">
+  <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-8">
+    <div class="flex flex-col gap-5">
+      <NumberedLabel number={number} label={label} mobileLabel={mobileLabel} />
+      <h2 class="text-[28px] leading-[1.1] font-medium tracking-[-0.56px] text-white md:text-[56px] md:leading-[1.02] md:tracking-[-1.68px]">{data.title}</h2>
+    </div>
+    {data.description && <p class="text-[14px] leading-[1.5] text-on-dark-muted md:w-[440px] md:shrink-0 md:text-[16px] md:leading-[1.55] md:tracking-[-0.032px]">{data.description}</p>}
+  </div>
+  <ul class="flex flex-col gap-5 md:flex-row md:gap-4">
+    {data.scenes.map((s) => (
+      <li class:list={['relative h-[220px] min-w-0 overflow-clip rounded-md bg-stage md:flex-1 md:rounded-lg', tall ? 'md:h-[480px]' : 'md:h-[420px]']}>
+        <img src={s.image} alt={s.alt ?? s.name} class="absolute inset-0 size-full object-cover" loading="lazy" />
+        <ProductChip label={s.name} tone="white" class="absolute top-3 left-3 md:top-[18px] md:left-[18px]" />
+      </li>
+    ))}
+  </ul>
+</section>

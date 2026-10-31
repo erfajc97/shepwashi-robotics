@@ -1,0 +1,16 @@
+---
+// Home · CTA final (Figma 2:14128). Usa la banda reutilizable CtaBand.
+import CtaBand from '@/components/sections/CtaBand.astro';
+import { cta } from '@/app/data/home';
+---
+
+<CtaBand
+  index={cta.index}
+  label={cta.label}
+  title={cta.title}
+  titleMobile={cta.titleMobile}
+  description={cta.description}
+  descriptionMobile={cta.descriptionMobile}
+  actions={cta.actions}
+  image={cta.image}
+/>

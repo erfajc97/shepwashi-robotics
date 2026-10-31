@@ -1,0 +1,52 @@
+---
+import type { ApplicationStory } from '@/app/data/applications';
+
+interface Props { story: ApplicationStory; index: number; total: number }
+const { story, index, total } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, '0');
+const dark = story.tone === 'panel';
+const rows = [
+  { label: 'El reto', text: story.challenge },
+  { label: 'La solución', text: story.solution },
+  { label: 'El resultado', text: story.result },
+];
+const left = story.imageSide === 'left';
+---
+
+<article
+  data-story={story.filter}
+  class="grid gap-[18px] rounded-lg bg-surface p-2 pb-5 md:h-[600px] md:grid-cols-[760fr_632fr] md:gap-4 md:rounded-none md:bg-transparent md:p-0 [&[hidden]]:hidden"
+>
+  <div class:list={['relative h-[240px] overflow-hidden rounded-md md:h-auto md:rounded-xl', !left && 'md:order-2']}>
+    <img src={story.image} alt={story.title} loading="lazy" class="absolute inset-0 size-full object-cover" />
+    <span class="absolute top-3 left-3 inline-flex items-center gap-2 rounded-pill bg-white py-2 pr-3.5 pl-3 font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] text-navy uppercase md:top-6 md:left-6">
+      <span class="size-1.5 rounded-pill bg-gold"></span>{story.industry}
+    </span>
+  </div>
+
+  <div class:list={['flex flex-col gap-3 px-3 md:justify-between md:gap-7 md:rounded-xl md:p-10', !left && 'md:order-1', dark ? 'md:bg-panel' : 'md:bg-surface']}>
+    <div class="flex flex-col md:gap-4">
+      <p class:list={['hidden font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] whitespace-pre uppercase md:block', dark ? 'text-on-dark-muted' : 'text-muted']}>{pad(index + 1)}  /  {pad(total)}</p>
+      <h2 class:list={['text-[21px] leading-[1.2] font-medium tracking-[-1px] text-ink md:text-[40px] md:leading-[1.08] md:tracking-[-2.5px]', dark && 'md:text-white']}>{story.title}</h2>
+    </div>
+    <div class="flex flex-col gap-3 md:gap-0">
+      {rows.map((r) => (
+        <div class:list={['flex flex-col gap-1.5 border-t pt-3 md:flex-row md:gap-6 md:py-4', dark ? 'border-line md:border-line-dark' : 'border-line']}>
+          <p class:list={['font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] text-gold uppercase md:w-[110px] md:shrink-0 md:pt-[3px]', dark && 'md:text-gold-soft']}>{r.label}</p>
+          <p class:list={['text-[14px] leading-normal text-ink-2 md:text-[16px] md:leading-[1.55] md:tracking-[-0.2px]', dark && 'md:text-white']}>{r.text}</p>
+        </div>
+      ))}
+    </div>
+    <div class="flex flex-wrap items-center gap-1.5 pt-1.5 md:gap-2 md:pt-0">
+      <span class:list={['hidden font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] uppercase md:inline', dark ? 'text-on-dark-muted' : 'text-muted']}>Robots</span>
+      {story.robots.map((r) => (
+        <a
+          href={`/producto/${r.slug}`}
+          class:list={['inline-flex items-center gap-2 rounded-pill py-2 pr-3.5 pl-3 font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] uppercase transition-opacity hover:opacity-80', dark ? 'border border-ink text-ink md:border-0 md:bg-navy-3 md:text-white' : 'border border-ink text-ink']}
+        >
+          <span class="size-1.5 rounded-pill bg-gold"></span>{r.name}
+        </a>
+      ))}
+    </div>
+  </div>
+</article>

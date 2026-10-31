@@ -1,0 +1,84 @@
+---
+import type { ProductDetail } from '@/app/data/productDetails';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import ProductChip from './ProductChip.astro';
+
+interface Props { product: ProductDetail }
+const { product } = Astro.props;
+const { hero } = product;
+const categoryHref = product.categoryHref ?? '/catalogo';
+// Nombres largos: 96 px en escritorio (Figma); cortos: 136 px.
+const nameSize = product.nameSize ?? (product.name.length >= 10 ? 'lg' : 'xl');
+const nameClass = nameSize === 'lg' ? 'md:text-[96px] md:leading-[0.94] md:tracking-[-4.32px]' : 'md:text-[136px] md:leading-[0.9] md:tracking-[-6.8px]';
+const crumb = 'transition-opacity hover:opacity-80';
+---
+
+<section class="flex flex-col gap-3 pt-2 md:gap-8 md:pt-10" aria-labelledby="producto-titulo">
+  <div class="flex flex-col gap-3.5 px-1 pt-6 pb-2 md:gap-5 md:px-8 md:pt-0 md:pb-0">
+    <nav aria-label="Migas de pan" class="font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] text-muted uppercase">
+      <a href="/" class:list={[crumb, 'hidden md:inline']}>Inicio</a><span class="hidden px-2 md:inline">/</span><a href="/catalogo" class={crumb}>Productos</a><span class="px-2">/</span><a href={categoryHref} class={crumb}>{product.category}</a>
+    </nav>
+    <div class="flex flex-col gap-3.5 md:flex-row md:items-end md:justify-between md:gap-6">
+      <h1 id="producto-titulo" class:list={["text-[52px] leading-[0.95] font-medium tracking-[-2.08px] text-ink uppercase md:whitespace-nowrap", nameClass]}>{product.name}</h1>
+      <div class="flex flex-col items-start gap-3.5 md:pb-3.5">
+        <ProductChip label={product.category} class="max-md:hidden" />
+        <p class="text-[21px] leading-[1.2] font-medium tracking-[-0.21px] text-ink-2 md:w-[360px] md:leading-[1.25] md:text-ink">{product.tagline}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid gap-3 md:gap-4 lg:grid-cols-[860fr_532fr]">
+    <div class="relative h-[420px] overflow-clip rounded-lg bg-stage md:h-auto md:min-h-[660px] md:rounded-xl">
+      <div class="absolute bottom-3 left-1/2 h-[365px] w-[320px] -translate-x-1/2 md:bottom-[30px] md:h-[559px] md:w-[490px]">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_55%_55%_at_50%_66.7%,rgba(255,255,255,0.16),rgba(255,255,255,0))]"></div>
+        <img src={hero.image} alt={hero.imageAlt ?? product.name} class="absolute inset-0 size-full object-contain" loading="eager" />
+      </div>
+      <!-- Móvil: solo la categoría. Escritorio: las etiquetas de funciones. -->
+      <ProductChip label={product.category} tone="filled" class="absolute top-3.5 left-3.5 md:hidden" />
+      <ul class="absolute top-6 left-6 hidden flex-wrap gap-2 pr-6 md:flex">
+        {hero.tags.map((t) => <li><ProductChip label={t} tone="filled" /></li>)}
+      </ul>
+      {hero.caption && (
+        <p class="absolute bottom-6 left-6 hidden font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] whitespace-pre text-muted uppercase md:block">{hero.caption}</p>
+      )}
+    </div>
+
+    <div class="flex flex-col justify-between gap-5 rounded-lg bg-surface px-5 pt-6 pb-5 md:gap-0 md:rounded-xl md:p-8">
+      <div class="flex flex-col gap-4">
+        <h2 class="text-[21px] leading-[1.2] font-medium tracking-[-0.21px] text-ink md:text-[28px] md:leading-[1.15] md:tracking-[-0.42px]">{hero.summaryTitle}</h2>
+        <p class="text-[14px] leading-[1.5] text-muted md:text-[16px] md:leading-[1.55] md:tracking-[-0.032px]">{hero.summary}</p>
+      </div>
+      <ul class="grid grid-cols-2 gap-[9px] md:gap-2.5">
+        {hero.stats.map((s) => (
+          <li class="flex min-h-[128px] flex-col justify-between gap-3 rounded-md bg-surface-2 p-3.5 md:h-[150px] md:gap-0 md:p-5">
+            <Icon name={s.icon} size={22} class="text-ink" />
+            <div class="flex flex-col gap-1.5">
+              <p class="flex items-baseline gap-1 font-mono font-normal">
+                <span class="text-[30px] leading-none tracking-[-1.2px] text-ink md:text-[40px] md:tracking-[-1.6px]">{s.value}</span>
+                {s.unit && <span class="text-[14px] leading-[1.35] text-muted">{s.unit}</span>}
+              </p>
+              <p class="text-[14px] leading-[1.5] text-muted">{s.label}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      {(hero.primaryCta || hero.secondaryCta) && (
+        <div class="flex flex-col gap-2.5">
+          {hero.primaryCta && <Button label={hero.primaryCta.label} href={hero.primaryCta.href} variant="gold" class="w-full justify-between" />}
+          {hero.secondaryCta && <Button label={hero.secondaryCta.label} href={hero.secondaryCta.href} variant="secondary" class="w-full justify-between" />}
+        </div>
+      )}
+    </div>
+  </div>
+
+  {hero.gallery && hero.gallery.length > 0 && (
+    <ul class="grid grid-cols-2 gap-4 md:grid-cols-4">
+      {hero.gallery.map((g) => (
+        <li class="aspect-square overflow-clip rounded-lg bg-stage">
+          <img src={g.src} alt={g.alt ?? `${product.name} — galería`} class="size-full object-cover" loading="lazy" />
+        </li>
+      ))}
+    </ul>
+  )}
+</section>

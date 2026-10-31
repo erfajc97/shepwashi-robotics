@@ -1,0 +1,32 @@
+---
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { SolutionData } from '@/app/data/solutions';
+
+interface Props { hero: SolutionData['hero'] }
+const { hero } = Astro.props;
+---
+
+<section class="relative h-[620px] overflow-hidden rounded-lg md:h-[720px] md:rounded-xl" aria-labelledby="solution-title">
+  <img src={hero.image.src} alt={hero.image.alt} class="absolute inset-0 size-full object-cover" fetchpriority="high" />
+  <div class="absolute inset-0 bg-linear-to-b from-[15%] from-[rgba(5,15,31,0)] to-[rgba(5,15,31,0.92)] md:from-[20%] md:to-[rgba(5,15,31,0.9)]"></div>
+  <nav aria-label="Migas de pan" class="absolute top-10 left-12 hidden font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] whitespace-pre text-white uppercase md:block">
+    <a href="/" class="hover:opacity-80">Inicio</a>{'  /  '}<a href="/soluciones" class="hover:opacity-80">Soluciones</a>{'  /  '}<span aria-current="page">{hero.chip}</span>
+  </nav>
+  <div class="absolute bottom-5 left-5 flex flex-col items-start gap-4 md:bottom-14 md:left-12 md:gap-6">
+    <span class="inline-flex items-center gap-2 rounded-pill bg-white py-2 pr-3.5 pl-3 font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] text-navy uppercase">
+      <span class="hidden size-1.5 rounded-pill bg-gold md:block"></span>{hero.chip}
+    </span>
+    <h1 id="solution-title" class="w-[321px] text-[36px] leading-[1.05] font-medium tracking-[-1.08px] text-white md:w-[900px] md:text-[72px] md:leading-[0.98] md:tracking-[-2.88px]">
+      {hero.title}
+    </h1>
+    <p class="w-[321px] text-[14px] leading-[1.5] text-white opacity-80 md:w-[620px] md:text-[19px] md:tracking-[-0.095px]">{hero.subtitle}</p>
+    <div class="flex w-full flex-col gap-3 md:w-auto md:flex-row">
+      <Button label={hero.cta.label} href={hero.cta.href} variant="gold" class="w-full justify-between md:w-auto md:justify-start" />
+      <a href={hero.secondaryCta.href} class="hidden items-center gap-4 rounded-pill bg-white py-1.5 pr-1.5 pl-[22px] text-[15px] leading-[1.2] font-medium tracking-[-0.03px] whitespace-nowrap text-navy transition-opacity hover:opacity-90 md:inline-flex">
+        {hero.secondaryCta.label}
+        <span class="grid size-9 place-items-center rounded-pill bg-navy text-white"><Icon name="arrow-up-right" size={16} /></span>
+      </a>
+    </div>
+  </div>
+</section>

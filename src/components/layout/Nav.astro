@@ -1,0 +1,308 @@
+---
+import ThemedImg from '@/components/ui/ThemedImg.astro';
+import ThemeToggle from '@/components/ui/ThemeToggle.astro';
+import Icon from '@/components/ui/Icon.astro';
+import Logo from '@/components/ui/Logo.astro';
+import Button from '@/components/ui/Button.astro';
+import {
+  mainNav,
+  menuProductLines,
+  menuProductsFeature,
+  menuIndustries,
+  menuSolutionsFeature,
+} from '@/app/data/navigation';
+
+const linkClass =
+  'flex items-center gap-1 text-[14px] leading-[1.2] text-white transition-colors hover:text-gold-soft aria-expanded:text-gold-soft';
+const monoLabel = 'font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] uppercase';
+const panelWrap =
+  'invisible absolute inset-x-4 top-20 z-40 hidden pt-4 opacity-0 transition-[opacity,visibility] duration-150 motion-reduce:transition-none data-[open=true]:visible data-[open=true]:opacity-100 md:block';
+const panelBox = 'grid gap-10 rounded-lg border border-line bg-surface p-8';
+const simpleMobile = mainNav.left.filter((l) => !('menu' in l));
+---
+
+<header class="sticky top-0 z-50 mx-auto w-full max-w-[1440px] px-4 pt-4" id="site-header">
+  <!-- Desktop -->
+  <nav class="hidden h-16 items-center justify-between rounded-md bg-panel pr-2.5 pl-7 md:flex" aria-label="Principal">
+    <div class="flex w-[500px] items-center gap-8">
+      {mainNav.left.map((l) => (
+        'menu' in l ? (
+          <a
+            href={l.href}
+            class={linkClass}
+            data-menu={l.menu}
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls={`menu-${l.menu}`}
+          >
+            {l.label}
+            <Icon name="chevron-down" size={14} />
+          </a>
+        ) : (
+          <a href={l.href} class={linkClass}>{l.label}</a>
+        )
+      ))}
+    </div>
+    <Logo />
+    <div class="flex w-[500px] items-center justify-end gap-7">
+      {mainNav.right.map((l) => <a href={l.href} class={linkClass}>{l.label}</a>)}
+      <button type="button" class={linkClass} aria-label="Idioma">ES <Icon name="chevron-down" size={14} /></button>
+      <ThemeToggle class="text-white hover:bg-navy-3" />
+      <Button label="Contacto" href="/contacto" variant="gold" class="pl-[18px]" />
+    </div>
+  </nav>
+
+  <!-- Mega menú · Productos -->
+  <div id="menu-productos" data-panel="productos" class={panelWrap} aria-label="Productos">
+    <div class:list={[panelBox, 'grid-cols-[360px_minmax(0,1fr)_340px]']}>
+      <div class="flex flex-col gap-3">
+        <p class:list={[monoLabel, 'text-muted']}>Líneas de producto</p>
+        <div class="flex flex-col gap-3">
+          {menuProductLines.map((line, i) => (
+            <a
+              href={line.href}
+              data-line={line.id}
+              data-active={i === 0 ? 'true' : 'false'}
+              class="group/line flex h-14 items-center gap-3 rounded-md bg-surface-2 px-4 data-[active=true]:bg-ink"
+            >
+              <span class:list={[monoLabel, 'text-subtle group-data-[active=true]/line:text-gold-soft']}>{line.num}</span>
+              <span class="flex-1 text-[17px] leading-[1.3] font-medium tracking-[-0.085px] text-ink group-data-[active=true]/line:text-inverse">{line.label}</span>
+              <span class:list={[monoLabel, 'text-muted group-data-[active=true]/line:text-on-dark-muted']}>{line.count}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        {menuProductLines.map((line, i) => (
+          <div data-models={line.id} hidden={i !== 0} class="flex flex-col gap-4">
+            <p class:list={[monoLabel, 'text-muted']}>Modelos de {line.label}</p>
+            <div class="grid grid-cols-2 gap-6">
+              {line.columns.map((col) => (
+                <div class="flex flex-col gap-2">
+                  {col.map((p) => (
+                    <a href={p.href} class="flex items-center gap-3.5 rounded-md p-2 transition-colors hover:bg-surface-2 focus-visible:bg-surface-2">
+                      <span class="grid size-16 shrink-0 place-items-center overflow-hidden rounded-sm bg-stage">
+                        <ThemedImg src={p.imagen} alt="" width="64" height="64" loading="lazy" class="size-full object-contain" />
+                      </span>
+                      <span class="flex min-w-0 flex-col gap-0.5">
+                        <span class="text-[17px] leading-[1.3] font-medium tracking-[-0.085px] text-ink">{p.nombre}</span>
+                        <span class="text-[14px] leading-[1.5] text-muted">{p.tagline}</span>
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="flex flex-col gap-3.5 self-start">
+        <img src={menuProductsFeature.image} alt="" width="340" height="190" loading="lazy" class="h-[190px] w-full rounded-md object-cover" />
+        <p class="text-[21px] leading-[1.25] font-medium tracking-[-0.21px] text-ink">{menuProductsFeature.title}</p>
+        <p class="text-[14px] leading-[1.5] text-muted">{menuProductsFeature.text}</p>
+        <Button label={menuProductsFeature.cta.label} href={menuProductsFeature.cta.href} variant="gold" class="self-start" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Mega menú · Soluciones -->
+  <div id="menu-soluciones" data-panel="soluciones" class={panelWrap} aria-label="Soluciones">
+    <div class:list={[panelBox, 'grid-cols-[minmax(0,1fr)_380px]']}>
+      <div class="flex flex-col gap-4">
+        <p class:list={[monoLabel, 'text-muted']}>Soluciones por industria</p>
+        <div class="grid grid-flow-col grid-cols-2 grid-rows-5 gap-x-6 gap-y-1.5">
+          {menuIndustries.map((i) => (
+            <a href={i.href} class="flex items-center gap-3.5 rounded-md p-2 transition-colors hover:bg-surface-2 focus-visible:bg-surface-2">
+              <img src={i.image} alt="" width="56" height="56" loading="lazy" class="size-14 shrink-0 rounded-sm object-cover" />
+              <span class="flex min-w-0 flex-col gap-0.5">
+                <span class="text-[17px] leading-[1.3] font-medium tracking-[-0.085px] text-ink">{i.label}</span>
+                <span class="text-[14px] leading-[1.5] text-muted">{i.desc}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="flex flex-col gap-3.5 self-start">
+        <img src={menuSolutionsFeature.image} alt="" width="380" height="190" loading="lazy" class="h-[190px] w-full rounded-md object-cover" />
+        <p class="text-[21px] leading-[1.25] font-medium tracking-[-0.21px] text-ink">{menuSolutionsFeature.title}</p>
+        <p class="text-[14px] leading-[1.5] text-muted">{menuSolutionsFeature.text}</p>
+        <Button label={menuSolutionsFeature.cta.label} href={menuSolutionsFeature.cta.href} variant="gold" class="self-start" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile -->
+  <nav class="flex h-14 items-center justify-between rounded-md bg-panel pr-1.5 pl-[18px] md:hidden" aria-label="Principal móvil">
+    <Logo small />
+    <button type="button" id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú" class="grid size-11 place-items-center rounded-sm bg-navy-3 text-white">
+      <span><Icon name="menu" /></span>
+      <span hidden><Icon name="x" /></span>
+    </button>
+  </nav>
+
+  <div id="mobile-menu" hidden class="fixed inset-x-0 top-20 bottom-0 z-40 overflow-y-auto overscroll-contain bg-canvas px-4 md:hidden">
+    <div class="flex min-h-full flex-col justify-between px-2">
+      <div class="flex flex-col">
+        <!-- Productos -->
+        <div class="border-b border-line">
+          <button type="button" data-acc="productos" aria-expanded="false" aria-controls="acc-productos" class="group/acc flex w-full items-center gap-3 py-4 text-left">
+            <span class="flex-1 text-[28px] leading-[1.1] font-medium tracking-[-0.56px] text-ink">Productos</span>
+            <span class="grid size-10 place-items-center rounded-pill border border-ink text-ink group-aria-expanded/acc:bg-ink group-aria-expanded/acc:text-inverse">
+              <span class="group-aria-expanded/acc:hidden"><Icon name="plus" size={20} /></span>
+              <span class="hidden group-aria-expanded/acc:block"><Icon name="minus" size={20} /></span>
+            </span>
+          </button>
+          <div id="acc-productos" hidden class="flex flex-col gap-2 pb-5">
+            {menuProductLines.map((line) => (
+              <a href={line.href} class="flex h-[52px] items-center gap-3 rounded-md bg-surface-2 px-4">
+                <span class:list={[monoLabel, 'text-subtle']}>{line.num}</span>
+                <span class="flex-1 text-[17px] leading-[1.3] font-medium tracking-[-0.085px] text-ink">{line.label}</span>
+                <span class:list={[monoLabel, 'text-muted']}>{line.count}</span>
+              </a>
+            ))}
+            <Button label={menuProductsFeature.mobileCta.label} href={menuProductsFeature.mobileCta.href} variant="gold" class="w-full justify-between" />
+          </div>
+        </div>
+
+        <!-- Soluciones -->
+        <div class="border-b border-line">
+          <button type="button" data-acc="soluciones" aria-expanded="false" aria-controls="acc-soluciones" class="group/acc flex w-full items-center gap-3 py-4 text-left">
+            <span class="flex-1 text-[28px] leading-[1.1] font-medium tracking-[-0.56px] text-ink">Soluciones</span>
+            <span class="grid size-10 place-items-center rounded-pill border border-ink text-ink group-aria-expanded/acc:bg-ink group-aria-expanded/acc:text-inverse">
+              <span class="group-aria-expanded/acc:hidden"><Icon name="plus" size={20} /></span>
+              <span class="hidden group-aria-expanded/acc:block"><Icon name="minus" size={20} /></span>
+            </span>
+          </button>
+          <div id="acc-soluciones" hidden class="flex flex-col gap-2 pb-5">
+            {menuIndustries.map((i) => (
+              <a href={i.href} class="flex items-center gap-3.5 py-1">
+                <img src={i.image} alt="" width="44" height="44" loading="lazy" class="size-11 shrink-0 rounded-sm object-cover" />
+                <span class="flex-1 text-[17px] leading-[1.3] font-medium tracking-[-0.085px] text-ink">{i.label}</span>
+              </a>
+            ))}
+            <Button label={menuSolutionsFeature.mobileCta.label} href={menuSolutionsFeature.mobileCta.href} variant="gold" class="w-full justify-between" />
+          </div>
+        </div>
+
+        {simpleMobile.map((l) => (
+          <a href={l.href} class="border-b border-line py-4 text-[28px] leading-[1.1] font-medium tracking-[-0.56px] text-ink">{l.label}</a>
+        ))}
+
+        <div class="flex flex-col py-2">
+          {mainNav.right.map((l) => (
+            <a href={l.href} class="py-3.5 text-[17px] leading-[1.3] font-medium tracking-[-0.085px] text-ink-2">{l.label}</a>
+          ))}
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 py-4">
+        <div class="flex items-center gap-2 py-2" role="group" aria-label="Idioma">
+          <span class:list={[monoLabel, 'rounded-pill bg-ink px-4 py-2 text-inverse']} aria-current="true">ES</span>
+          <span class:list={[monoLabel, 'rounded-pill border border-line px-4 py-2 text-ink']}>EN</span>
+          <ThemeToggle class="ml-auto border border-line text-ink" />
+        </div>
+        <Button label="Contacto" href="/contacto" variant="gold" class="w-full justify-between" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header') as HTMLElement | null;
+  const desktop = window.matchMedia('(min-width: 768px)');
+
+  /* ---------- Escritorio: mega-menús por hover/foco ---------- */
+  const triggers = Array.from(document.querySelectorAll<HTMLAnchorElement>('#site-header a[data-menu]'));
+  const panels = Array.from(document.querySelectorAll<HTMLElement>('#site-header [data-panel]'));
+  let closeTimer: number | undefined;
+
+  const setMenu = (name: string | null) => {
+    window.clearTimeout(closeTimer);
+    triggers.forEach((t) => t.setAttribute('aria-expanded', String(t.dataset.menu === name)));
+    panels.forEach((p) => p.setAttribute('data-open', String(p.dataset.panel === name)));
+  };
+  const scheduleClose = () => {
+    window.clearTimeout(closeTimer);
+    closeTimer = window.setTimeout(() => setMenu(null), 140);
+  };
+
+  triggers.forEach((t) => {
+    t.addEventListener('mouseenter', () => desktop.matches && setMenu(t.dataset.menu ?? null));
+    t.addEventListener('focus', () => desktop.matches && setMenu(t.dataset.menu ?? null));
+    t.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowDown') return;
+      e.preventDefault();
+      setMenu(t.dataset.menu ?? null);
+      document.querySelector<HTMLElement>(`#site-header [data-panel="${t.dataset.menu}"] a`)?.focus();
+    });
+  });
+  // Otros enlaces del nav cierran el menú abierto.
+  document.querySelectorAll<HTMLElement>('#site-header nav[aria-label="Principal"] a:not([data-menu]), #site-header nav[aria-label="Principal"] button').forEach((el) => {
+    el.addEventListener('mouseenter', () => setMenu(null));
+    el.addEventListener('focus', () => setMenu(null));
+  });
+  panels.forEach((p) => {
+    p.addEventListener('mouseenter', () => window.clearTimeout(closeTimer));
+    p.addEventListener('focusin', () => window.clearTimeout(closeTimer));
+  });
+  header?.addEventListener('mouseleave', scheduleClose);
+  header?.addEventListener('focusout', (e) => {
+    if (!header.contains(e.relatedTarget as Node | null)) scheduleClose();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const open = triggers.find((t) => t.getAttribute('aria-expanded') === 'true');
+    setMenu(null);
+    if (open && header?.contains(document.activeElement)) open.focus({ preventScroll: true });
+    closeMobile();
+  });
+
+  // Pestañas de líneas de producto (hover/foco)
+  const lines = Array.from(document.querySelectorAll<HTMLElement>('#menu-productos [data-line]'));
+  const models = Array.from(document.querySelectorAll<HTMLElement>('#menu-productos [data-models]'));
+  const activateLine = (id: string | undefined) => {
+    lines.forEach((l) => l.setAttribute('data-active', String(l.dataset.line === id)));
+    models.forEach((m) => (m.hidden = m.dataset.models !== id));
+  };
+  lines.forEach((l) => {
+    l.addEventListener('mouseenter', () => activateLine(l.dataset.line));
+    l.addEventListener('focus', () => activateLine(l.dataset.line));
+  });
+
+  /* ---------- Móvil: panel con acordeones ---------- */
+  const toggle = document.getElementById('mobile-menu-toggle') as HTMLButtonElement | null;
+  const menu = document.getElementById('mobile-menu') as HTMLElement | null;
+  const accs = Array.from(document.querySelectorAll<HTMLButtonElement>('#mobile-menu [data-acc]'));
+
+  const setAcc = (btn: HTMLButtonElement | null) => {
+    accs.forEach((a) => {
+      const open = a === btn && a.getAttribute('aria-expanded') !== 'true';
+      a.setAttribute('aria-expanded', String(open));
+      const sub = document.getElementById(a.getAttribute('aria-controls') ?? '');
+      if (sub) sub.hidden = !open;
+    });
+  };
+  accs.forEach((a) => a.addEventListener('click', () => setAcc(a)));
+
+  function setMobile(open: boolean) {
+    if (!toggle || !menu) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    const [iconMenu, iconClose] = Array.from(toggle.children) as HTMLElement[];
+    if (iconMenu) iconMenu.hidden = open;
+    if (iconClose) iconClose.hidden = !open;
+    menu.hidden = !open;
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    if (!open) setAcc(null);
+  }
+  function closeMobile() {
+    if (toggle?.getAttribute('aria-expanded') === 'true') setMobile(false);
+  }
+  toggle?.addEventListener('click', () => setMobile(toggle.getAttribute('aria-expanded') !== 'true'));
+  desktop.addEventListener('change', (e) => {
+    if (e.matches) closeMobile();
+    else setMenu(null);
+  });
+</script>

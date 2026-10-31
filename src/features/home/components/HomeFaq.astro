@@ -1,0 +1,29 @@
+---
+// Home · Preguntas frecuentes (Figma 2:14090). Columna izquierda (título, ayuda, CTA) + acordeón.
+import Button from '@/components/ui/Button.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import FaqAccordion from '@/components/sections/FaqAccordion.astro';
+import { faqItems, faqCopy as c } from '@/app/data/home';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((i) => ({
+    '@type': 'Question',
+    name: i.question,
+    acceptedAnswer: { '@type': 'Answer', text: i.answer },
+  })),
+};
+---
+
+<section class="flex flex-col gap-7 rounded-lg bg-surface px-5 pt-10 pb-6 lg:flex-row lg:gap-16 lg:rounded-xl lg:px-12 lg:pt-18 lg:pb-14">
+  <div class="flex flex-col gap-6 lg:w-[400px] lg:shrink-0">
+    <SectionHeader index="08" label={c.label} title={c.title} titleMobile={c.titleMobile} size="md" stacked labelGap="gap-4 lg:gap-6" />
+    <p class="hidden text-[16px] leading-[1.55] tracking-[-0.032px] text-muted lg:block lg:w-[360px]">{c.description}</p>
+    <div class="hidden lg:block">
+      <Button label={c.cta.label} href={c.cta.href} variant="gold" />
+    </div>
+  </div>
+  <FaqAccordion items={faqItems} name="home-faq" class="lg:min-w-0 lg:flex-1" />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</section>

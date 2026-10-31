@@ -1,0 +1,14 @@
+---
+import Button from '@/components/ui/Button.astro';
+---
+
+<section class="flex flex-col gap-4 rounded-lg bg-panel px-5 pt-8 pb-5 md:flex-row md:items-center md:justify-between md:gap-10 md:rounded-xl md:bg-ink md:py-12 md:pr-8 md:pl-14">
+  <div class="flex flex-col gap-3">
+    <h2 class="text-[28px] leading-[1.1] font-medium tracking-[-2px] text-white md:text-[40px] md:leading-[1.08] md:tracking-[-2.5px] md:text-inverse">¿Cuál sería tu caso?</h2>
+    <p class="text-[14px] leading-normal text-on-dark-muted md:text-[16px] md:leading-[1.55] md:tracking-[-0.2px]">Te mostramos un robot funcionando en un escenario parecido al tuyo.</p>
+  </div>
+  <div class="flex flex-col gap-3 md:flex-row">
+    <Button label="Agendar una demo" href="/contacto" variant="gold" class="w-full justify-between md:w-auto md:justify-start" />
+    <Button label="Hablar con un asesor" href="/contacto" variant="on-dark" class="hidden !border-0 !bg-inverse !text-ink md:inline-flex" />
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+// Botón-círculo del sistema de diseño (Icon Button): Outline | Gold | Dark | Glass | Light.
+// Es un <span> decorativo: úsalo dentro de un <a> o <button>.
+import Icon from '@/components/ui/Icon.astro';
+
+interface Props {
+  icon?: string;
+  tone?: 'outline' | 'gold' | 'dark' | 'glass' | 'light';
+  /** Diámetro en px */
+  size?: 36 | 44;
+  class?: string;
+}
+const { icon = 'arrow-right', tone = 'outline', size = 44, class: className } = Astro.props;
+const tones = {
+  outline: 'border border-ink text-ink',
+  gold: 'bg-gold text-on-gold',
+  dark: 'bg-navy text-white',
+  glass: 'border border-white/32 bg-white/16 text-white backdrop-blur-md',
+  light: 'bg-ink text-canvas',
+};
+---
+
+<span
+  class:list={['grid shrink-0 place-items-center rounded-pill', size === 44 ? 'size-11' : 'size-9', tones[tone], className]}
+  aria-hidden="true"
+>
+  <Icon name={icon} size={size === 44 ? 18 : 16} />
+</span>

@@ -1,0 +1,19 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import ApplicationsHeader from '@/features/applications/components/ApplicationsHeader.astro';
+import ApplicationFilters from '@/features/applications/components/ApplicationFilters.astro';
+import ApplicationStory from '@/features/applications/components/ApplicationStory.astro';
+import ApplicationsCta from '@/features/applications/components/ApplicationsCta.astro';
+import { applicationStories } from '@/app/data/applications';
+---
+
+<PublicLayout title="Aplicaciones | Shepwashi Robotics" description="Escenarios donde los robots de Shepwashi ya trabajan todos los días: el reto, cómo se resolvió y qué cambió en la operación.">
+  <div class="flex flex-col gap-3 md:gap-4">
+    <ApplicationsHeader />
+    <ApplicationFilters />
+    <section class="flex flex-col gap-3 md:gap-4" aria-label="Casos de uso">
+      {applicationStories.map((s, i) => <ApplicationStory story={s} index={i} total={applicationStories.length} />)}
+    </section>
+    <ApplicationsCta />
+  </div>
+</PublicLayout>

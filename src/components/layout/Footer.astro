@@ -1,0 +1,43 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import Logo from '@/components/ui/Logo.astro';
+import Button from '@/components/ui/Button.astro';
+import { footerColumns } from '@/app/data/navigation';
+---
+
+<footer class="mx-auto w-full max-w-[1440px] px-4 pb-4">
+  <div class="flex flex-col gap-10 rounded-lg bg-navy px-6 pt-10 pb-7 text-white md:gap-[72px] md:rounded-xl md:px-14 md:pt-16 md:pb-10">
+    <div class="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+      <p class="text-[28px] leading-[1.1] font-medium tracking-[-0.56px] md:text-[56px] md:leading-[1.02] md:tracking-[-1.68px]">
+        Robótica de servicio,<br class="hidden md:block" /> implementada en LatAm<br class="hidden md:block" /> y el Caribe.
+      </p>
+      <form class="flex flex-col gap-3.5" action="#" method="post">
+        <label for="newsletter" class="hidden font-mono text-[11.5px] font-medium tracking-[0.92px] text-on-dark-muted uppercase md:block">Novedades de Shepwashi Robotics</label>
+        <div class="flex h-12 w-full items-center justify-between rounded-pill border border-line-dark bg-navy-3 py-1.5 pr-1.5 pl-[18px] md:w-[420px] md:pl-[22px]">
+          <input id="newsletter" type="email" placeholder="Tu correo corporativo" class="min-w-0 flex-1 bg-transparent text-[14px] text-white placeholder:text-on-dark-muted focus:outline-none md:text-[16px]" />
+          <button type="submit" aria-label="Suscribirme" class="grid size-9 place-items-center rounded-pill bg-gold text-on-gold md:hidden"><Icon name="arrow-right" size={18} /></button>
+          <Button label="Suscribirme" variant="gold" class="hidden md:inline-flex" />
+        </div>
+      </form>
+    </div>
+
+    <div class="flex flex-wrap gap-x-4 gap-y-7 md:flex-nowrap md:gap-6">
+      {footerColumns.map((col) => (
+        <div class="flex w-[calc(50%-8px)] flex-col gap-2.5 md:w-auto md:flex-1 md:gap-3">
+          <p class="font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] text-gold-soft uppercase md:mb-1.5">{col.title}</p>
+          {col.links.map((l) => (
+            <a href={l.href} class:list={['text-[14px] leading-[1.5] hover:text-gold-soft', l.desktopOnly && 'hidden md:block']}>{l.label}</a>
+          ))}
+        </div>
+      ))}
+    </div>
+
+    <div class="flex flex-col gap-4 border-t border-line-dark pt-6 md:flex-row md:items-center md:justify-between md:pt-7">
+      <Logo />
+      <p class="text-[14px] leading-[1.5] text-on-dark-muted">© 2026 Shepwashi · Todos los derechos reservados</p>
+      <div class="hidden gap-6 text-[14px] leading-[1.5] text-on-dark-muted md:flex">
+        <a href="#">Privacidad</a><a href="#">Términos</a><a href="#">LinkedIn</a><a href="#">Instagram</a>
+      </div>
+    </div>
+  </div>
+</footer>

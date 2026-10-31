@@ -1,0 +1,14 @@
+---
+// Baldosa de icono 44x44 (r10, surface-2) con el trazo del Figma en currentColor.
+const files = import.meta.glob('/public/assets/nosotros/icons/*.svg', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+
+interface Props { name: string; class?: string }
+const { name, class: className } = Astro.props;
+const raw = files[`/public/assets/nosotros/icons/${name}.svg`];
+if (!raw) throw new Error(`Glyph "${name}" no existe`);
+const svg = raw
+  .replace(/<path[^>]*fill="#14263F"[^>]*\/>/i, '')
+  .replace(/stroke="#[0-9a-fA-F]{3,8}"/g, 'stroke="currentColor"')
+  .replace(/width="44" height="44"/, 'width="44" height="44" class="size-full"');
+---
+<span class:list={['grid size-11 shrink-0 place-items-center rounded-sm bg-surface-2 text-ink', className]} aria-hidden="true" set:html={svg} />

@@ -1,0 +1,44 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import Icon from '@/components/ui/Icon.astro';
+import CatalogCard from '@/features/catalog/components/CatalogCard.astro';
+import CatalogFilters from '@/features/catalog/components/CatalogFilters';
+import { products } from '@/app/data/products';
+---
+
+<PublicLayout title="Catálogo de robots | Shepwashi Robotics" description="Modelos en cinco líneas: recepción, última milla, seguridad, humanoides y médicos. Todos con implementación y soporte de Shepwashi Robotics.">
+  <div class="flex flex-col gap-3 md:gap-4">
+    <header class="flex flex-col gap-4 px-1 pt-7 pb-3 md:flex-row md:items-end md:justify-between md:gap-0 md:px-8 md:pt-14 md:pb-8">
+      <div class="flex flex-col gap-4 font-medium md:gap-6">
+        <p class="font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] whitespace-pre text-muted uppercase">Inicio  /  Productos</p>
+        <h1 class="text-[52px] leading-[0.95] font-medium tracking-[-2.08px] text-ink md:text-[96px] md:leading-[0.94] md:tracking-[-4.32px] md:whitespace-nowrap">Catálogo de robots</h1>
+      </div>
+      <p class="text-[15px] leading-[1.55] tracking-[-0.03px] text-ink-2 md:hidden">
+        20 modelos en cinco líneas, con implementación y soporte de Shepwashi Robotics.
+      </p>
+      <p class="hidden text-[19px] leading-normal tracking-[-0.095px] text-ink-2 md:block md:w-[420px]">
+        20 modelos en cinco líneas: recepción, última milla, seguridad, humanoides y médicos. Todos con implementación y soporte de Shepwashi Robotics.
+      </p>
+    </header>
+
+    <section class="flex flex-col gap-3 md:gap-6 md:rounded-xl md:bg-surface md:px-6 md:pt-6 md:pb-8" aria-label="Catálogo">
+      <CatalogFilters client:load />
+      <div class="grid grid-cols-2 items-start gap-[9px] md:gap-4 lg:grid-cols-4">
+        {products.map((product) => <CatalogCard product={product} />)}
+      </div>
+      <div id="catalog-more" class="md:hidden"></div>
+    </section>
+
+    <section class="flex flex-col gap-4 rounded-lg bg-panel px-5 pt-7 pb-5 md:flex-row md:items-center md:justify-between md:gap-0 md:rounded-xl md:bg-ink md:py-6 md:pr-6 md:pl-12">
+      <div class="flex flex-col gap-4 md:gap-1.5">
+        <h2 class="text-[21px] leading-[1.2] font-medium tracking-[-0.21px] text-white md:text-[28px] md:leading-[1.15] md:tracking-[-0.42px] md:text-inverse">¿No sabes qué modelo necesitas?</h2>
+        <p class="hidden text-[16px] leading-[1.55] tracking-[-0.032px] text-on-dark-muted md:block">Cuéntanos la tarea y te recomendamos el robot adecuado en menos de 24 horas.</p>
+        <p class="text-[14px] leading-normal text-on-dark-muted md:hidden">Te recomendamos el robot adecuado en menos de 24 horas.</p>
+      </div>
+      <a href="/contacto" class="inline-flex w-full shrink-0 items-center justify-between gap-4 rounded-pill bg-gold py-1.5 pr-1.5 pl-[22px] text-[15px] leading-[1.2] font-medium tracking-[-0.03px] whitespace-nowrap text-on-gold transition-opacity hover:opacity-90 md:w-auto md:justify-start">
+        Hablar con un asesor
+        <span class="grid size-9 place-items-center rounded-pill bg-on-gold text-gold-soft"><Icon name="arrow-up-right" size={16} /></span>
+      </a>
+    </section>
+  </div>
+</PublicLayout>

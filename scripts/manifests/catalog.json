@@ -1,0 +1,26 @@
+{
+ "outDir": "public/assets/catalog",
+ "prefix": "https://www.figma.com/api/mcp/asset/9f25046b-bdd3-4ef2-a765-cea1b083673b",
+ "files": {
+  "ciao": "8cb59.png",
+  "timo": "0ee15.png",
+  "amy": "88fd4.png",
+  "alice": "180de.png",
+  "snow": "974bb.png",
+  "fairy": "efa83.png",
+  "speedybot-pro": "2b049.png",
+  "speedybot-max": "8d23a.png",
+  "speedybot-max-e": "0ba7b.png",
+  "panda-ultra": "ec139.png",
+  "panda": "f741f.png",
+  "amy-delivery": "1fc83.png",
+  "panda-amr-f150": "11eca.png",
+  "panda-amr-f600": "1186e.png",
+  "panda-hotel": "5a010.png",
+  "specopsbot": "3173e.png",
+  "catcop": "6d768.png",
+  "g1": "f27a7.png",
+  "panda-e": "8ed70.png",
+  "jing": "ad414.png"
+ }
+}

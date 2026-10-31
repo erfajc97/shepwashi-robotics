@@ -1,0 +1,17 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import SolutionsHeader from '@/features/solutions-index/components/SolutionsHeader.astro';
+import SolutionIndexCard from '@/features/solutions-index/components/SolutionIndexCard.astro';
+import SolutionsCta from '@/features/solutions-index/components/SolutionsCta.astro';
+import { solutionsIndex } from '@/app/data/solutionsIndex';
+---
+
+<PublicLayout title="Soluciones por industria | Shepwashi Robotics" description="Robots de recepción, entrega, seguridad y cuidado en una flota pensada para cada operación: hoteles, hospitales, restaurantes, retail, fábricas y más.">
+  <div class="flex flex-col gap-3 md:gap-4">
+    <SolutionsHeader />
+    <section class="grid grid-cols-1 gap-3 md:grid-cols-6 md:gap-4" aria-label="Industrias">
+      {solutionsIndex.map((item, i) => <SolutionIndexCard item={item} index={i} />)}
+    </section>
+    <SolutionsCta />
+  </div>
+</PublicLayout>

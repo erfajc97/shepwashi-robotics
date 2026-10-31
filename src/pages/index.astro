@@ -1,0 +1,33 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import HomeHero from '@/features/home/components/HomeHero.astro';
+import ManufacturerBacking from '@/features/home/components/ManufacturerBacking.astro';
+import ProductLines from '@/features/home/components/ProductLines.astro';
+import FeaturedProducts from '@/features/home/components/FeaturedProducts.astro';
+import EngineeringSpotlight from '@/features/home/components/EngineeringSpotlight.astro';
+import Industries from '@/features/home/components/Industries.astro';
+import Applications from '@/features/home/components/Applications.astro';
+import Process from '@/features/home/components/Process.astro';
+import Resources from '@/features/home/components/Resources.astro';
+import HomeFaq from '@/features/home/components/HomeFaq.astro';
+import HomeCta from '@/features/home/components/HomeCta.astro';
+---
+
+<PublicLayout
+  title="Shepwashi Robotics | Robótica de servicio, lista para operar"
+  description="Robots de recepción, última milla, seguridad, humanoides y médicos. Los seleccionamos, configuramos e implementamos en tu operación en LatAm y el Caribe, con soporte local."
+>
+  <div class="flex flex-col gap-3 lg:gap-4">
+    <HomeHero />
+    <ManufacturerBacking />
+    <ProductLines />
+    <FeaturedProducts />
+    <EngineeringSpotlight />
+    <Industries />
+    <Applications />
+    <Process />
+    <Resources />
+    <HomeFaq />
+    <HomeCta />
+  </div>
+</PublicLayout>

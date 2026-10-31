@@ -1,0 +1,32 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import SolutionHero from '@/features/solutions/components/SolutionHero.astro';
+import SolutionStats from '@/features/solutions/components/SolutionStats.astro';
+import SolutionHowItWorks from '@/features/solutions/components/SolutionHowItWorks.astro';
+import SolutionChecklist from '@/features/solutions/components/SolutionChecklist.astro';
+import SolutionRecommended from '@/features/solutions/components/SolutionRecommended.astro';
+import SolutionCta from '@/features/solutions/components/SolutionCta.astro';
+import { solutions, defaultSolutionLabels, solutionMobileLimits, type SolutionData } from '@/app/data/solutions';
+
+export function getStaticPaths() {
+  return solutions.map((s) => ({ params: { slug: s.slug }, props: { solution: s } }));
+}
+
+interface Props { solution: SolutionData }
+const { solution: s } = Astro.props;
+const labels = { ...defaultSolutionLabels, ...s.labels };
+---
+
+<PublicLayout title={s.seo.title} description={s.seo.description}>
+  <div class="flex flex-col gap-3 pb-4 md:gap-4">
+    <SolutionHero hero={s.hero} />
+    <SolutionStats stats={s.stats} />
+    <SolutionHowItWorks data={s.howItWorks} label={labels.howItWorks} />
+    <div class="flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-4">
+      <SolutionChecklist variant="challenges" index="02" label={labels.challenges} title={s.challenges.title} items={s.challenges.items} mobileLimit={solutionMobileLimits.challenges} />
+      <SolutionChecklist variant="why" index="03" label={labels.why} title={s.why.title} items={s.why.items} mobileLimit={solutionMobileLimits.why} />
+    </div>
+    <SolutionRecommended data={s.recommended} label={labels.recommended} />
+    <SolutionCta data={s.cta} />
+  </div>
+</PublicLayout>

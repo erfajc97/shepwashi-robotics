@@ -1,0 +1,56 @@
+---
+// Home · Implementación (Figma 2:14018). Panel oscuro con 5 pasos: escritorio en 5 columnas con
+// icono dorado; móvil en filas apiladas y botón al final.
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeader from '@/components/sections/SectionHeader.astro';
+import { processSteps, processCopy as c } from '@/app/data/home';
+
+const mono = 'font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] text-on-dark-muted uppercase';
+---
+
+<section class="flex flex-col gap-7 rounded-lg bg-panel px-5 pt-10 pb-6 lg:gap-12 lg:rounded-xl lg:px-12 lg:pt-18 lg:pb-14">
+  <SectionHeader index="06" label={c.label} title={c.title} titleMobile={c.titleMobile} onDark>
+    <div slot="action" class="hidden lg:block">
+      <Button label={c.cta.label} href={c.cta.href} variant="gold" />
+    </div>
+  </SectionHeader>
+
+  <!-- Pasos · escritorio -->
+  <ol class="hidden grid-cols-5 items-start gap-4 lg:grid">
+    {
+      processSteps.map((s, i) => (
+        <li class="flex flex-col gap-5 rounded-lg bg-navy-3 px-5 pt-5 pb-6">
+          <div class="flex items-center justify-between">
+            <span class="grid size-10 place-items-center rounded-sm bg-gold text-gold-soft">
+              <Icon name={s.icon} size={20} />
+            </span>
+            <span class={mono}>{String(i + 1).padStart(2, '0')}</span>
+          </div>
+          <span class="h-8" aria-hidden="true"></span>
+          <h3 class="text-[21px] leading-[1.25] font-medium tracking-[-0.21px] text-white">{s.title}</h3>
+          <p class="text-[14px] leading-normal text-on-dark-muted">{s.description}</p>
+        </li>
+      ))
+    }
+  </ol>
+
+  <!-- Pasos · móvil -->
+  <ol class="flex flex-col gap-2 lg:hidden">
+    {
+      processSteps.map((s, i) => (
+        <li class="flex gap-3.5 rounded-md bg-navy-3 p-3.5 pb-4">
+          <span class="grid size-9 shrink-0 place-items-center rounded-sm bg-gold text-gold-soft">
+            <Icon name={s.icon} size={18} />
+          </span>
+          <div class="flex min-w-px flex-1 flex-col gap-1">
+            <span class={mono}>{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="text-[17px] leading-[1.3] font-medium tracking-[-0.085px] text-white">{s.title}</h3>
+            <p class="text-[14px] leading-normal text-on-dark-muted">{s.descriptionMobile}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+  <Button label={c.cta.label} href={c.cta.href} variant="gold" class="w-full justify-between lg:hidden" />
+</section>

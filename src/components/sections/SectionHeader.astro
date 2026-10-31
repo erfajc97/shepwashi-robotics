@@ -1,0 +1,88 @@
+---
+// Cabecera de sección del Home y reutilizable: "Section Label" con índice + título grande
+// + (escritorio) descripción o acción a la derecha (slot "action").
+// `title` admite "\n" (salto solo en escritorio). `titleMobile` sustituye al título en móvil.
+interface Props {
+  label: string;
+  /** Índice "01"… (opcional) */
+  index?: string;
+  title: string;
+  titleMobile?: string;
+  /** Texto lateral de escritorio (se oculta en móvil salvo que pases `descriptionClass`) */
+  description?: string;
+  /** Fondo oscuro fijo (bg-panel / bg-navy) */
+  onDark?: boolean;
+  /** md = 40 px · lg = 56 px (por defecto) · xl = 72 px en escritorio; 36 px en móvil */
+  size?: 'md' | 'lg' | 'xl';
+  /** h1 en vez de h2 */
+  as?: 'h1' | 'h2';
+  descriptionClass?: string;
+  /** Siempre en columna (sin fila título | lateral en escritorio) */
+  stacked?: boolean;
+  /** Clases de gap entre etiqueta y título (por defecto 16 px móvil / 20 px escritorio) */
+  labelGap?: string;
+  class?: string;
+}
+const {
+  label,
+  index,
+  title,
+  titleMobile,
+  description,
+  onDark = false,
+  size = 'lg',
+  as: Tag = 'h2',
+  descriptionClass,
+  stacked = false,
+  labelGap = 'gap-4 lg:gap-5',
+  class: className,
+} = Astro.props;
+
+const sizes = {
+  md: 'lg:text-[40px] lg:leading-[1.08] lg:tracking-[-1px]',
+  lg: 'lg:text-[56px] lg:leading-[1.02] lg:tracking-[-1.68px]',
+  xl: 'lg:text-[72px] lg:leading-[0.98] lg:tracking-[-2.88px]',
+};
+---
+
+<div class:list={['flex flex-col gap-7', !stacked && 'lg:flex-row lg:items-end lg:justify-between lg:gap-8', className]}>
+  <div class:list={['flex flex-col', labelGap]}>
+    <div class="flex items-center gap-2.5">
+      <span class="size-2 bg-gold"></span>
+      {index && (
+        <>
+          <span class:list={['font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] uppercase', onDark ? 'text-on-dark-muted' : 'text-muted']}>{index}</span>
+          <span class:list={['h-px w-6', onDark ? 'bg-on-dark-muted' : 'bg-subtle']}></span>
+        </>
+      )}
+      <span class:list={['font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] uppercase', onDark ? 'text-white' : 'text-ink']}>{label}</span>
+    </div>
+    <Tag
+      class:list={[
+        'text-[36px] leading-[1.05] font-medium tracking-[-1.08px] lg:whitespace-pre-line',
+        sizes[size],
+        onDark ? 'text-white' : 'text-ink',
+      ]}
+    >
+      {titleMobile ? (
+        <>
+          <span class="whitespace-pre-line lg:hidden">{titleMobile}</span>
+          <span class="hidden lg:inline">{title}</span>
+        </>
+      ) : (
+        title
+      )}
+    </Tag>
+  </div>
+  {description && (
+    <p
+      class:list={[
+        descriptionClass ?? 'hidden text-[16px] leading-[1.55] tracking-[-0.032px] lg:block lg:w-[360px]',
+        onDark ? 'text-on-dark-muted' : 'text-muted',
+      ]}
+    >
+      {description}
+    </p>
+  )}
+  <slot name="action" />
+</div>

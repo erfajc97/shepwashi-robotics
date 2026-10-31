@@ -1,0 +1,26 @@
+---
+// Imagen de producto con variante por tema. El Figma usa, en el tema claro, otra foto del mismo robot
+// (JPG con fondo propio, rellena la tarjeta) y en el oscuro el PNG recortado (se ajusta al contenedor).
+// Si `src` es /assets/catalog/<slug>.png se emiten las dos y el CSS global muestra una según data-theme.
+interface Props {
+  src: string;
+  alt?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  width?: number | string;
+  height?: number | string;
+  decoding?: 'async' | 'auto' | 'sync';
+}
+const { src, class: className = '', alt = '', ...rest } = Astro.props;
+const m = src.match(/^\/assets\/catalog\/([a-z0-9-]+)\.png$/);
+const light = m ? `/assets/catalog/light/${m[1]}.jpg` : null;
+---
+
+{light ? (
+  <>
+    <img src={src} alt={alt} class:list={[className, 'theme-dark-img']} {...rest} />
+    <img src={light} alt={alt} class:list={[className.replace('object-contain', 'object-cover'), 'theme-light-img']} {...rest} />
+  </>
+) : (
+  <img src={src} alt={alt} class={className} {...rest} />
+)}

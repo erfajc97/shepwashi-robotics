@@ -1,0 +1,65 @@
+---
+// Banda de llamada a la acción (Home · CTA): panel oscuro con etiqueta, título grande, descripción,
+// botones y foto a la derecha (escritorio) / arriba (móvil).
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeader from './SectionHeader.astro';
+
+export interface CtaAction {
+  label: string;
+  href: string;
+  /** gold = dorado · white = blanco sobre fondo oscuro */
+  variant?: 'gold' | 'white';
+}
+interface Props {
+  label: string;
+  index?: string;
+  /** Admite "\n" (salto solo en escritorio) */
+  title: string;
+  titleMobile?: string;
+  description: string;
+  descriptionMobile?: string;
+  actions: CtaAction[];
+  image: { src: string; alt: string };
+  class?: string;
+}
+const { label, index, title, titleMobile, description, descriptionMobile, actions, image, class: className } = Astro.props;
+---
+
+<section class:list={['flex flex-col overflow-clip rounded-lg bg-panel pb-7 lg:flex-row lg:rounded-xl lg:pb-0', className]}>
+  <div class="order-2 flex flex-1 flex-col justify-center gap-5 px-5 pt-7 lg:order-1 lg:gap-7 lg:py-16 lg:pt-[72px] lg:pr-10 lg:pl-14">
+    <SectionHeader {label} {index} {title} {titleMobile} onDark size="xl" stacked labelGap="gap-5 lg:gap-7" />
+    <p class="text-[15px] leading-[1.55] tracking-[-0.03px] text-on-dark-muted lg:max-w-[520px] lg:text-[19px] lg:leading-normal lg:tracking-[-0.095px]">
+      {descriptionMobile ? (
+        <>
+          <span class="lg:hidden">{descriptionMobile}</span>
+          <span class="hidden lg:inline">{description}</span>
+        </>
+      ) : (
+        description
+      )}
+    </p>
+    <div class="flex flex-col gap-5 lg:flex-row lg:gap-3">
+      {
+        actions.map((a) =>
+          a.variant === 'white' ? (
+            <a
+              href={a.href}
+              class="inline-flex w-full items-center justify-between gap-4 rounded-pill bg-white lg:w-auto py-1.5 pr-1.5 pl-[22px] text-[15px] leading-[1.2] font-medium tracking-[-0.03px] whitespace-nowrap text-navy transition-opacity hover:opacity-90"
+            >
+              {a.label}
+              <span class="grid size-9 place-items-center rounded-pill bg-navy text-white">
+                <Icon name="arrow-up-right" size={16} />
+              </span>
+            </a>
+          ) : (
+            <Button label={a.label} href={a.href} variant="gold" class="w-full justify-between lg:w-auto" />
+          ),
+        )
+      }
+    </div>
+  </div>
+  <div class="order-1 h-[240px] lg:order-2 lg:h-auto lg:w-[520px] lg:shrink-0">
+    <img src={image.src} alt={image.alt} loading="lazy" decoding="async" class="size-full object-cover" />
+  </div>
+</section>

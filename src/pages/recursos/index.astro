@@ -1,0 +1,24 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import FeaturedPost from '@/features/resources/components/FeaturedPost.astro';
+import ResourceLibrary from '@/features/resources/components/ResourceLibrary.astro';
+import Newsletter from '@/features/resources/components/Newsletter.astro';
+import { featuredArticle } from '@/app/data/articles';
+---
+
+<PublicLayout title="Recursos | Shepwashi Robotics" description="Lo que aprendemos implementando robots de servicio: tecnología, operación y resultados.">
+  <div class="flex flex-col gap-3 md:gap-4">
+    <header class="flex flex-col gap-4 px-1 pt-7 pb-3 md:flex-row md:items-end md:justify-between md:gap-0 md:px-8 md:pt-14 md:pb-8">
+      <div class="flex flex-col gap-4 md:gap-6">
+        <p class="font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] whitespace-pre text-muted uppercase">Inicio  /  Recursos</p>
+        <h1 class="text-[52px] leading-[0.95] font-medium tracking-[-4px] text-ink md:text-[96px] md:leading-[0.94] md:tracking-[-4.5px]">
+          Noticias, guías<br class="hidden md:inline" /> y casos de uso
+        </h1>
+      </div>
+      <p class="hidden w-[420px] text-[19px] leading-[1.5] tracking-[-0.5px] text-ink-2 md:block">Lo que aprendemos implementando robots de servicio: tecnología, operación y resultados.</p>
+    </header>
+    <FeaturedPost article={featuredArticle} />
+    <ResourceLibrary />
+    <Newsletter />
+  </div>
+</PublicLayout>

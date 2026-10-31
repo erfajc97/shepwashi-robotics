@@ -1,0 +1,13 @@
+{
+  "outDir": "public/assets/products/timo",
+  "prefix": "https://www.figma.com/api/mcp/asset/afaf3726-53f4-4a03-ab37-418c531e2741",
+  "files": {
+    "hero-product": "0ee15.png",
+    "scene-sala-de-servicio": "29e48.png",
+    "scene-aula": "34020.png",
+    "stat-icon-1": "064b2.svg",
+    "stat-icon-2": "ff52b.svg",
+    "stat-icon-3": "d1457.svg",
+    "stat-icon-4": "d07c3.svg"
+  }
+}

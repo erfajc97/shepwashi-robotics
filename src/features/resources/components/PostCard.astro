@@ -1,0 +1,24 @@
+---
+import type { Article } from '@/app/data/articles';
+
+interface Props {
+  article: Article;
+  class?: string;
+  [key: string]: unknown;
+}
+const { article, class: className, ...rest } = Astro.props;
+---
+<article class:list={['flex flex-col gap-4', className]} {...rest}>
+  <a href={`/recursos/${article.slug}`} class="group flex flex-col gap-4">
+    <div class="h-[210px] overflow-hidden rounded-lg bg-surface-2 md:h-[280px]">
+      <img src={article.image} alt="" loading="lazy" class="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+    </div>
+    <div class="flex items-center gap-3 font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] whitespace-pre uppercase">
+      <span class="inline-flex items-center gap-2 rounded-pill border border-ink py-2 pr-3.5 pl-3 text-ink">
+        <span class="size-1.5 rounded-full bg-gold"></span>{article.category}
+      </span>
+      <span class="text-muted">{article.date}  ·  {article.minutes} min</span>
+    </div>
+    <h3 class="text-[21px] leading-[1.25] font-medium tracking-[-1px] text-ink">{article.title}</h3>
+  </a>
+</article>

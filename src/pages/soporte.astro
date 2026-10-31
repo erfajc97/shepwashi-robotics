@@ -1,0 +1,83 @@
+---
+import PublicLayout from '@/layouts/PublicLayout.astro';
+import Icon from '@/components/ui/Icon.astro';
+import IndexLabel from '@/features/support/components/IndexLabel.astro';
+import SupportForm from '@/features/support/components/SupportForm';
+import { slaStats, supportServices, supportChannels } from '@/features/support/data';
+---
+
+<PublicLayout title="Soporte | Shepwashi Robotics" description="Soporte que no se apaga: respondemos en 2 horas, entregamos una solución en 24 y damos soporte remoto, en sitio o por video.">
+  <div class="flex flex-col gap-3 md:gap-4">
+    <!-- Encabezado -->
+    <header class="flex flex-col gap-4 px-1 pt-7 pb-2 md:flex-row md:items-end md:justify-between md:gap-6 md:px-8 md:pt-14 md:pb-6">
+      <div class="flex flex-col gap-4 md:gap-6">
+        <p class="font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] whitespace-pre text-muted uppercase">Inicio  /  Soporte</p>
+        <h1 class="text-[52px] leading-[0.95] font-medium tracking-[-2.08px] text-ink md:text-[96px] md:leading-[0.94] md:tracking-[-4.32px]">
+          Soporte que<br class="hidden md:block" /> no se apaga.
+        </h1>
+      </div>
+      <p class="text-[15px] leading-[1.55] tracking-[-0.03px] text-ink-2 md:w-[440px] md:text-[19px] md:leading-normal md:tracking-[-0.095px]">
+        <span class="md:hidden">Respondemos en 2 horas y entregamos una solución en 24. También soporte remoto o por video.</span>
+        <span class="hidden md:inline">Ante cualquier incidencia respondemos en 2 horas y entregamos una solución en 24. Si hace falta visita, la confirmamos en 24 horas; también damos soporte remoto o por video.</span>
+      </p>
+    </header>
+
+    <!-- SLA -->
+    <section aria-label="Tiempos de servicio" class="grid grid-cols-2 gap-x-0 rounded-lg bg-ink px-5 py-3 md:flex md:rounded-xl md:px-12 md:py-10">
+      {slaStats.map((s, i) => (
+        <div class:list={['flex flex-col gap-1.5 py-3.5 md:flex-1 md:gap-3 md:py-0', i > 0 && 'md:border-l md:border-line-dark md:pl-8']}>
+          <p class="flex items-baseline gap-1 md:gap-1.5">
+            <span class="font-mono text-[32px] leading-none tracking-[-0.96px] text-inverse md:font-sans md:text-[72px] md:leading-[0.98] md:font-medium md:tracking-[-2.88px]">{s.value}</span>
+            {s.unit && <span class="font-mono text-[14px] leading-[1.35] text-gold-soft">{s.unit}</span>}
+          </p>
+          <p class="text-[14px] leading-[1.5] text-on-dark-muted">{s.label}</p>
+        </div>
+      ))}
+    </section>
+
+    <!-- 01 Servicio posventa -->
+    <section class="flex flex-col gap-4 rounded-lg bg-surface px-5 pt-9 pb-5 md:gap-10 md:rounded-xl md:px-12 md:pt-[72px] md:pb-12" aria-labelledby="posventa">
+      <div class="flex flex-col gap-4 md:gap-5">
+        <IndexLabel index="01" label="Servicio posventa" />
+        <h2 id="posventa" class="text-[28px] leading-[1.1] font-medium tracking-[-0.56px] text-ink md:text-[56px] md:leading-[1.02] md:tracking-[-1.68px]">
+          Acompañamiento durante<br class="hidden md:block" /> toda la vida del robot.
+        </h2>
+      </div>
+      <div class="flex flex-col gap-4 md:flex-row md:items-start">
+        {supportServices.map((s) => (
+          <article class="flex gap-3.5 border-t border-line pt-3.5 md:flex-1 md:flex-col md:gap-4 md:rounded-lg md:border-t-0 md:bg-surface-2 md:p-6 md:pb-7">
+            <span class="mt-px grid size-10 shrink-0 place-items-center rounded-sm bg-surface-2 text-ink md:mt-0 md:size-11">
+              <Icon name={s.icon} size={20} />
+            </span>
+            <div class="flex flex-col gap-1 md:mt-0 md:gap-4">
+              <h3 class="text-[17px] leading-[1.3] font-medium tracking-[-0.085px] text-ink md:mt-12 md:text-[21px] md:leading-[1.25] md:tracking-[-0.21px]">{s.title}</h3>
+              <p class="text-[14px] leading-[1.5] text-muted">{s.text}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- 02 Solicitar soporte -->
+    <section class="flex flex-col gap-4 rounded-lg bg-surface px-5 pt-9 pb-5 md:flex-row md:gap-16 md:rounded-xl md:px-12 md:pt-[72px] md:pb-14" aria-labelledby="solicitar">
+      <div class="flex flex-col gap-4 md:w-[420px] md:shrink-0 md:gap-5">
+        <IndexLabel index="02" label="Solicitar soporte" />
+        <h2 id="solicitar" class="text-[28px] leading-[1.1] font-medium tracking-[-0.56px] text-ink md:text-[56px] md:leading-[1.02] md:tracking-[-1.68px]">Reporta una incidencia.</h2>
+        <p class="hidden text-[16px] leading-[1.55] tracking-[-0.032px] text-muted md:block md:w-[380px]">Completa el formulario y un técnico te contactará en menos de 2 horas.</p>
+        <ul class="hidden flex-col gap-2.5 pt-4 md:flex">
+          {supportChannels.map((c) => (
+            <li>
+              <a href={c.href} class="flex items-center gap-3 text-[16px] leading-[1.55] tracking-[-0.032px] text-ink transition-colors hover:text-gold-soft">
+                <span class="grid size-9 place-items-center rounded-sm bg-surface-2"><Icon name={c.icon} size={18} /></span>
+                {c.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="min-w-0 md:flex-1">
+        <SupportForm client:load />
+      </div>
+    </section>
+  </div>
+</PublicLayout>

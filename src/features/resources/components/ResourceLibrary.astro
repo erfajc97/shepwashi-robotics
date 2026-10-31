@@ -1,0 +1,110 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import PostCard from './PostCard.astro';
+import { articleCategories, featuredArticle, libraryArticles } from '@/app/data/articles';
+
+const total = libraryArticles.length + 1;
+const cats = ['Todos', ...articleCategories];
+const pillBase = 'rounded-pill px-[14px] py-2.5 text-[14px] leading-[1.5] md:px-[18px] md:text-[15px] md:leading-[1.2] md:font-medium md:tracking-[-0.2px]';
+---
+<!-- Filtros móvil (fuera de la tarjeta) -->
+<div class="flex gap-1.5 overflow-x-auto md:hidden" role="group" aria-label="Filtrar por categoría">
+  {cats.map((c, i) => (
+    <button type="button" data-filter={c} aria-pressed={i === 0} class:list={[pillBase, 'shrink-0 whitespace-nowrap', 'bg-surface text-ink aria-pressed:bg-ink aria-pressed:text-inverse']}>{c}</button>
+  ))}
+</div>
+
+<section id="library" class="flex flex-col gap-7 rounded-lg bg-surface px-4 pt-4 pb-6 md:gap-8 md:rounded-xl md:px-8 md:pt-10 md:pb-6" aria-label="Biblioteca de artículos">
+  <div class="hidden items-center justify-between md:flex">
+    <div class="flex gap-1.5 rounded-pill bg-surface-2 p-1.5" role="group" aria-label="Filtrar por categoría">
+      {cats.map((c, i) => (
+        <button type="button" data-filter={c} aria-pressed={i === 0} class:list={[pillBase, 'whitespace-nowrap text-ink aria-pressed:bg-ink aria-pressed:text-inverse']}>{c}</button>
+      ))}
+    </div>
+    <p id="count" class="font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] text-muted uppercase">{total} artículos</p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-x-6 gap-y-7 md:grid-cols-3 md:gap-y-10">
+    <PostCard article={featuredArticle} data-post data-cat={featuredArticle.category} data-mobile-only class="md:hidden" />
+    {libraryArticles.map((a) => <PostCard article={a} data-post data-cat={a.category} />)}
+  </div>
+  <p id="empty" class="hidden py-10 text-center text-muted">No hay artículos en esta categoría.</p>
+
+  <nav id="pagination" class="hidden justify-center gap-2 pt-4 md:flex" aria-label="Paginación"></nav>
+  <button id="more" type="button" class="flex items-center justify-between rounded-pill border border-ink py-1.5 pr-1.5 pl-[22px] text-[15px] leading-[1.2] font-medium tracking-[-0.2px] text-ink md:hidden">
+    Cargar más artículos
+    <span class="grid size-9 place-items-center rounded-pill bg-ink text-canvas"><Icon name="arrow-up-right" size={16} /></span>
+  </button>
+</section>
+
+<style is:global>
+  [data-post][data-off] { display: none; }
+</style>
+
+<script>
+  const PAGE = 9;
+  const MORE = 4;
+  let cat = 'Todos';
+  let page = 1;
+  let mLimit = MORE;
+  const items = Array.from(document.querySelectorAll<HTMLElement>('[data-post]'));
+  const mq = matchMedia('(min-width: 768px)');
+  const pag = document.getElementById('pagination')!;
+  const more = document.getElementById('more')!;
+  const count = document.getElementById('count');
+  const empty = document.getElementById('empty')!;
+  const isMobileOnly = (i: HTMLElement) => 'mobileOnly' in i.dataset;
+  const featCat = items.find(isMobileOnly)?.dataset.cat;
+  const pageBtn = 'rounded-full px-4 py-2.5 font-mono text-sm leading-[1.35] border border-ink';
+
+  function render() {
+    const desk = mq.matches;
+    const match = (i: HTMLElement) => cat === 'Todos' || i.dataset.cat === cat;
+    const pool = items.filter((i) => (desk ? !isMobileOnly(i) : true) && match(i));
+    const pages = Math.max(1, Math.ceil(pool.length / PAGE));
+    if (page > pages) page = pages;
+    const show = new Set(desk ? pool.slice((page - 1) * PAGE, page * PAGE) : pool.slice(0, mLimit));
+    items.forEach((i) => i.toggleAttribute('data-off', !show.has(i)));
+    document.querySelectorAll<HTMLElement>('[data-filter]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === cat)));
+    const n = items.filter((i) => !isMobileOnly(i) && match(i)).length + (cat === 'Todos' || cat === featCat ? 1 : 0);
+    if (count) count.textContent = n + ' artículos';
+    empty.classList.toggle('hidden', pool.length > 0);
+    more.style.display = !desk && pool.length > mLimit ? '' : 'none';
+    pag.innerHTML = '';
+    pag.style.display = desk && pages > 1 ? 'flex' : 'none';
+    const add = (label: string, target: number, active: boolean, aria?: string) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = label;
+      b.dataset.page = String(target);
+      b.className = pageBtn + (active ? ' bg-ink text-inverse' : ' text-ink');
+      if (active) b.setAttribute('aria-current', 'page');
+      if (aria) b.setAttribute('aria-label', aria);
+      pag.appendChild(b);
+    };
+    for (let p = 1; p <= pages; p++) add(String(p), p, p === page);
+    if (page < pages) add('→', page + 1, false, 'Página siguiente');
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-filter]').forEach((b) =>
+    b.addEventListener('click', () => {
+      cat = b.dataset.filter ?? 'Todos';
+      page = 1;
+      mLimit = MORE;
+      render();
+    }),
+  );
+  pag.addEventListener('click', (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLElement>('[data-page]');
+    if (!b) return;
+    page = Number(b.dataset.page);
+    render();
+    document.getElementById('library')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  more.addEventListener('click', () => {
+    mLimit += MORE;
+    render();
+  });
+  mq.addEventListener('change', render);
+  render();
+</script>
