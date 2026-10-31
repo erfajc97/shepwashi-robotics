@@ -96,3 +96,7 @@ body {
 /* Variantes de imagen por tema (ver components/ui/ThemedImg.astro) */
 :root[data-theme="light"] .theme-dark-img { display: none; }
 :root:not([data-theme="light"]) .theme-light-img { display: none; }
+
+/* Scrollers horizontales: sin barra visible */
+[class*="overflow-x-auto"] { scrollbar-width: none; }
+[class*="overflow-x-auto"]::-webkit-scrollbar { display: none; }

@@ -27,7 +27,7 @@ const left = story.imageSide === 'left';
   <div class:list={['flex flex-col gap-3 px-3 md:justify-between md:gap-7 md:rounded-xl md:p-10', !left && 'md:order-1', dark ? 'md:bg-panel' : 'md:bg-surface']}>
     <div class="flex flex-col md:gap-4">
       <p class:list={['hidden font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] whitespace-pre uppercase md:block', dark ? 'text-on-dark-muted' : 'text-muted']}>{pad(index + 1)}  /  {pad(total)}</p>
-      <h2 class:list={['text-[21px] leading-[1.2] font-medium tracking-[-1px] text-ink md:text-[40px] md:leading-[1.08] md:tracking-[-2.5px]', dark && 'md:text-white']}>{story.title}</h2>
+      <h2 class:list={['text-[19px] leading-[1.2] font-medium tracking-[-1px] text-ink md:text-[32px] md:leading-[1.08] md:tracking-[-1.95px]', dark && 'md:text-white']}>{story.title}</h2>
     </div>
     <div class="flex flex-col gap-3 md:gap-0">
       {rows.map((r) => (

@@ -15,7 +15,7 @@ const { items, number, label = 'Relacionados', title = 'Otros modelos' } = Astro
     <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-6">
       <div class="flex flex-col gap-5">
         <NumberedLabel number={number} label={label} />
-        <h2 class="text-[28px] leading-[1.1] font-medium tracking-[-0.56px] text-ink md:text-[56px] md:leading-[1.02] md:tracking-[-1.68px]">{title}</h2>
+        <h2 class="text-[28px] leading-[1.1] font-medium tracking-[-0.56px] text-ink md:text-[44px] md:leading-[1.02] md:tracking-[-1.31px]">{title}</h2>
       </div>
       <Button label="Ver catálogo completo" href="/catalogo" variant="secondary" class="self-start max-md:hidden" />
     </div>
@@ -31,7 +31,7 @@ const { items, number, label = 'Relacionados', title = 'Otros modelos' } = Astro
             </div>
             <div class="flex items-center justify-between gap-3 pt-[18px] pr-2 pl-3">
               <div class="flex min-w-0 flex-col gap-1">
-                <h3 class="text-[21px] leading-[1.25] font-medium tracking-[-0.21px] text-ink">{p.name}</h3>
+                <h3 class="text-[19px] leading-[1.25] font-medium tracking-[-0.21px] text-ink">{p.name}</h3>
                 <p class="text-[14px] leading-[1.5] text-muted">{p.tagline}</p>
               </div>
               <span class="grid size-11 shrink-0 place-items-center rounded-pill border border-ink text-ink transition-colors group-hover:bg-ink group-hover:text-canvas">

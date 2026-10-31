@@ -6,17 +6,17 @@ import Glyph from './Glyph.astro';
 import { whatWeDo, manufacturerStats, certifications, technologies, offices } from '@/app/data/about';
 
 const mono = 'font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] uppercase';
-const h2 = 'text-[28px] leading-[1.1] font-medium tracking-[-2px] md:text-[56px] md:leading-[1.02] md:tracking-[-3px]';
+const h2 = 'text-[28px] leading-[1.1] font-medium tracking-[-1.56px] md:text-[44px] md:leading-[1.02] md:tracking-[-2.34px]';
 ---
 <!-- Hero -->
 <header class="flex flex-col gap-4 px-1 pt-7 pb-2 md:gap-6 md:px-8 md:pt-14 md:pb-6">
   <p class:list={[mono, 'whitespace-pre text-muted']}>Inicio  /  Nosotros</p>
   <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-0">
-    <h1 class="text-[52px] leading-[0.94] font-medium tracking-[-4px] text-ink md:text-[96px] md:tracking-[-4.5px]">
+    <h1 class="text-[40px] leading-[0.94] font-medium tracking-[-3.12px] text-ink md:text-[72px] md:tracking-[-3.51px]">
       La línea de robótica<br class="hidden md:inline" /> de Shepwashi.
     </h1>
     <p class="text-[15px] leading-[1.55] tracking-[-0.2px] text-ink-2 md:hidden">Firma de software y consultoría en IA en Latinoamérica y el Caribe, ahora con robótica de servicio: seleccionamos, integramos y operamos robots en empresas de la región.</p>
-    <p class="hidden w-[440px] pb-1 text-[19px] leading-[1.5] tracking-[-0.5px] text-ink-2 md:block">Shepwashi es una firma de desarrollo de software y consultoría en IA que opera en Latinoamérica y el Caribe. Shepwashi Robotics lleva esa experiencia a la robótica de servicio: seleccionamos, integramos y operamos robots en empresas de la región.</p>
+    <p class="hidden w-[440px] pb-1 text-[17px] leading-[1.5] tracking-[-0.5px] text-ink-2 md:block">Shepwashi es una firma de desarrollo de software y consultoría en IA que opera en Latinoamérica y el Caribe. Shepwashi Robotics lleva esa experiencia a la robótica de servicio: seleccionamos, integramos y operamos robots en empresas de la región.</p>
   </div>
 </header>
 
@@ -36,7 +36,7 @@ const h2 = 'text-[28px] leading-[1.1] font-medium tracking-[-2px] md:text-[56px]
         <Glyph name={w.glyph} class="md:bg-surface-2" />
         <div class="hidden h-6 md:block"></div>
         <div class="flex flex-col gap-1 md:gap-4">
-          <h3 class="text-[17px] leading-[1.3] font-medium tracking-[-0.5px] text-ink md:text-[28px] md:leading-[1.15] md:tracking-[-1.5px]">{w.title}</h3>
+          <h3 class="text-[17px] leading-[1.3] font-medium tracking-[-0.5px] text-ink md:text-[28px] md:leading-[1.15] md:tracking-[-1.17px]">{w.title}</h3>
           <p class="text-[14px] leading-[1.5] text-muted md:text-[16px] md:leading-[1.55] md:tracking-[-0.2px]">{w.text}</p>
         </div>
       </div>
@@ -56,7 +56,7 @@ const h2 = 'text-[28px] leading-[1.1] font-medium tracking-[-2px] md:text-[56px]
   <div class="grid grid-cols-2 gap-[9px] md:grid-cols-3 md:gap-4">
     {manufacturerStats.map((s) => (
       <div class="flex flex-col gap-2 rounded-md bg-navy-3 px-3.5 py-4 md:gap-3 md:rounded-lg md:p-6">
-        <p class="flex items-baseline gap-1.5 font-mono text-[32px] leading-none font-normal tracking-[-3px] text-white md:text-[44px] md:tracking-[-4px]">
+        <p class="flex items-baseline gap-1.5 font-mono text-[32px] leading-none font-normal tracking-[-2.34px] text-white md:text-[36px] md:tracking-[-3.12px]">
           {s.value}{s.unit && <span class="text-[14px] leading-[1.35] tracking-normal text-on-dark-muted">{s.unit}</span>}
         </p>
         <p class="text-[14px] leading-[1.5] text-on-dark-muted">{s.label}</p>
@@ -89,7 +89,7 @@ const h2 = 'text-[28px] leading-[1.1] font-medium tracking-[-2px] md:text-[56px]
       <li class:list={['flex gap-3.5 border-t border-line pt-3.5 pb-3 md:items-center md:gap-8 md:py-6', i === technologies.length - 1 && 'md:border-b']}>
         <span class:list={[mono, 'pt-1 text-gold md:pt-0']}>{String(i + 1).padStart(2, '0')}</span>
         <div class="flex flex-1 flex-col gap-1 md:flex-row md:items-center md:gap-8">
-          <h3 class="text-[17px] leading-[1.3] font-medium tracking-[-0.5px] text-ink md:w-[420px] md:shrink-0 md:text-[28px] md:leading-[1.15] md:tracking-[-1.5px]">{t.title}</h3>
+          <h3 class="text-[17px] leading-[1.3] font-medium tracking-[-0.5px] text-ink md:w-[420px] md:shrink-0 md:text-[28px] md:leading-[1.15] md:tracking-[-1.17px]">{t.title}</h3>
           <p class="text-[14px] leading-[1.5] text-muted md:flex-1 md:text-[16px] md:leading-[1.55] md:tracking-[-0.2px]">{t.text}</p>
         </div>
         <Glyph name={t.glyph} class="hidden md:grid" />
@@ -111,7 +111,7 @@ const h2 = 'text-[28px] leading-[1.1] font-medium tracking-[-2px] md:text-[56px]
       <div class="flex flex-col gap-1 rounded-md bg-surface-2 p-3.5 md:gap-10 md:rounded-lg md:p-6">
         <Icon name="pin" size={20} class="hidden text-ink md:inline-flex" />
         <div class="flex flex-col gap-1">
-          <p class="text-[17px] leading-[1.3] font-medium tracking-[-0.5px] text-ink md:text-[28px] md:leading-[1.15] md:tracking-[-1.5px]">{o.city}</p>
+          <p class="text-[17px] leading-[1.3] font-medium tracking-[-0.5px] text-ink md:text-[28px] md:leading-[1.15] md:tracking-[-1.17px]">{o.city}</p>
           <p class:list={[mono, 'text-muted']}><span class="md:hidden">{o.countryMobile}</span><span class="hidden md:inline">{o.country}</span></p>
         </div>
       </div>

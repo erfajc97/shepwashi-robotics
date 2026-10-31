@@ -25,7 +25,7 @@ const { items, openIndex = 0, name = 'faq', class: className } = Astro.props;
     items.map((item, i) => (
       <details name={name} open={i === openIndex} class="group border-t border-line pb-[18px] lg:pb-6">
         <summary class="flex cursor-pointer list-none items-center justify-between gap-4 pt-[18px] lg:gap-6 lg:pt-6 [&::-webkit-details-marker]:hidden">
-          <span class="min-w-px flex-1 text-[17px] leading-[1.3] font-medium tracking-[-0.085px] text-ink lg:py-[5px] lg:text-[21px] lg:leading-[1.25] lg:tracking-[-0.21px]">
+          <span class="min-w-px flex-1 text-[17px] leading-[1.3] font-medium tracking-[-0.085px] text-ink lg:py-[5px] lg:text-[19px] lg:leading-[1.25] lg:tracking-[-0.21px]">
             {item.question}
           </span>
           <span class="relative grid size-8 shrink-0 place-items-center rounded-pill border border-ink text-ink transition-colors group-open:bg-ink group-open:text-canvas lg:h-9 lg:w-[22px]">

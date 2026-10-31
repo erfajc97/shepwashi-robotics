@@ -176,7 +176,7 @@ export function SuccessPanel({ title, text, onReset, resetLabel }: { title: stri
       <span className="grid size-12 place-items-center rounded-sm bg-gold text-on-gold">
         <svg width="24" height="24" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16.6667 5L7.5 14.1667L3.33333 10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </span>
-      <p className="text-[28px] leading-[1.1] font-medium tracking-[-0.56px] text-ink md:text-[40px] md:tracking-[-1px]">{title}</p>
+      <p className="text-[28px] leading-[1.1] font-medium tracking-[-0.56px] text-ink md:text-[32px] md:tracking-[-1px]">{title}</p>
       <p className="max-w-[520px] text-[16px] leading-[1.55] tracking-[-0.032px] text-muted">{text}</p>
       <button type="button" onClick={onReset} className="rounded-pill border border-ink px-5 py-3 text-[15px] leading-[1.2] font-medium text-ink transition-opacity hover:opacity-80">{resetLabel}</button>
     </div>

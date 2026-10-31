@@ -18,7 +18,7 @@ const isWhy = variant === 'why';
 
 <section class:list={['flex flex-col gap-4 rounded-lg px-5 pt-9 pb-5 md:gap-7 md:rounded-xl md:px-12 md:pt-16 md:pb-12', isWhy ? 'bg-panel' : 'bg-surface']}>
   <SolutionLabel index={index} label={label} tone={isWhy ? 'dark' : 'light'} />
-  <h2 class:list={['text-[28px] leading-[1.1] font-medium tracking-[-0.56px] md:text-[40px] md:leading-[1.08] md:tracking-[-1px]', isWhy ? 'text-white' : 'text-ink']}>{title}</h2>
+  <h2 class:list={['text-[28px] leading-[1.1] font-medium tracking-[-0.56px] md:text-[32px] md:leading-[1.08] md:tracking-[-1px]', isWhy ? 'text-white' : 'text-ink']}>{title}</h2>
   <ul class="flex flex-col">
     {items.map((text, i) => (
       <li class:list={['gap-3.5 border-t py-3.5', isWhy ? 'border-line-dark' : 'border-line', i < mobileLimit ? 'flex' : 'hidden md:flex']}>

@@ -17,10 +17,10 @@ const { hero } = Astro.props;
     <span class="inline-flex items-center gap-2 rounded-pill bg-white py-2 pr-3.5 pl-3 font-mono text-[11.5px] leading-[1.2] font-medium tracking-[0.92px] text-navy uppercase">
       <span class="hidden size-1.5 rounded-pill bg-gold md:block"></span>{hero.chip}
     </span>
-    <h1 id="solution-title" class="w-[321px] text-[36px] leading-[1.05] font-medium tracking-[-1.08px] text-white md:w-[900px] md:text-[72px] md:leading-[0.98] md:tracking-[-2.88px]">
+    <h1 id="solution-title" class="w-[321px] text-[30px] leading-[1.05] font-medium tracking-[-1.08px] text-white md:w-[900px] md:text-[56px] md:leading-[0.98] md:tracking-[-2.25px]">
       {hero.title}
     </h1>
-    <p class="w-[321px] text-[14px] leading-[1.5] text-white opacity-80 md:w-[620px] md:text-[19px] md:tracking-[-0.095px]">{hero.subtitle}</p>
+    <p class="w-[321px] text-[14px] leading-[1.5] text-white opacity-80 md:w-[620px] md:text-[17px] md:tracking-[-0.095px]">{hero.subtitle}</p>
     <div class="flex w-full flex-col gap-3 md:w-auto md:flex-row">
       <Button label={hero.cta.label} href={hero.cta.href} variant="gold" class="w-full justify-between md:w-auto md:justify-start" />
       <a href={hero.secondaryCta.href} class="hidden items-center gap-4 rounded-pill bg-white py-1.5 pr-1.5 pl-[22px] text-[15px] leading-[1.2] font-medium tracking-[-0.03px] whitespace-nowrap text-navy transition-opacity hover:opacity-90 md:inline-flex">

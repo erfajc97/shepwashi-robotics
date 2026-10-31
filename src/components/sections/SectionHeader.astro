@@ -39,9 +39,9 @@ const {
 } = Astro.props;
 
 const sizes = {
-  md: 'lg:text-[40px] lg:leading-[1.08] lg:tracking-[-1px]',
-  lg: 'lg:text-[56px] lg:leading-[1.02] lg:tracking-[-1.68px]',
-  xl: 'lg:text-[72px] lg:leading-[0.98] lg:tracking-[-2.88px]',
+  md: 'lg:text-[32px] lg:leading-[1.08] lg:tracking-[-1px]',
+  lg: 'lg:text-[44px] lg:leading-[1.02] lg:tracking-[-1.31px]',
+  xl: 'lg:text-[56px] lg:leading-[0.98] lg:tracking-[-2.25px]',
 };
 ---
 
@@ -59,7 +59,7 @@ const sizes = {
     </div>
     <Tag
       class:list={[
-        'text-[36px] leading-[1.05] font-medium tracking-[-1.08px] lg:whitespace-pre-line',
+        'text-[30px] leading-[1.05] font-medium tracking-[-1.08px] lg:whitespace-pre-line',
         sizes[size],
         onDark ? 'text-white' : 'text-ink',
       ]}

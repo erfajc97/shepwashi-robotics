@@ -16,13 +16,13 @@ const s = hero.spotlight;
       <SectionLabel label={hero.label} class="hidden lg:flex" />
       <h1
         id="home-hero-title"
-        class="text-[52px] leading-[0.95] font-medium tracking-[-2.08px] text-ink md:text-[72px] md:tracking-[-2.88px] min-[1360px]:text-[96px] min-[1360px]:leading-[0.94] min-[1360px]:tracking-[-4.32px]"
+        class="text-[40px] leading-[0.95] font-medium tracking-[-1.62px] text-ink md:text-[56px] md:tracking-[-2.25px] min-[1360px]:text-[72px] min-[1360px]:leading-[0.94] min-[1360px]:tracking-[-3.37px]"
       >
         {hero.titleLine1}{' '}<br class="hidden min-[1360px]:block" />{hero.titleLine2}
       </h1>
     </div>
     <div class="flex flex-col gap-6 lg:gap-7 min-[1360px]:w-[411px] min-[1360px]:shrink-0">
-      <p class="text-[15px] leading-[1.55] tracking-[-0.03px] text-ink-2 lg:max-w-[380px] lg:text-[19px] lg:leading-normal lg:tracking-[-0.095px]">
+      <p class="text-[15px] leading-[1.55] tracking-[-0.03px] text-ink-2 lg:max-w-[380px] lg:text-[17px] lg:leading-normal lg:tracking-[-0.095px]">
         {hero.lead}
       </p>
       <div class="flex flex-col gap-2.5 lg:flex-row lg:gap-3">
@@ -32,7 +32,7 @@ const s = hero.spotlight;
     </div>
   </div>
 
-  <div class="relative h-[460px] overflow-clip rounded-lg lg:h-[640px] lg:rounded-xl">
+  <div class="relative h-[min(460px,52svh)] overflow-clip rounded-lg lg:h-[min(640px,62svh)] lg:rounded-xl">
     <img src={hero.image.src} alt={hero.image.alt} fetchpriority="high" class="absolute inset-0 size-full object-cover" />
     <div class="absolute inset-0 hidden bg-linear-to-b from-transparent from-55% to-navy/55 lg:block"></div>
 
@@ -58,7 +58,7 @@ const s = hero.spotlight;
       <div class="flex items-center gap-4">
         <img src={s.image} alt="" class="h-24 w-[84px] shrink-0 rounded-sm object-cover" />
         <div class="flex flex-col gap-1.5">
-          <p class="text-[21px] leading-[1.25] font-medium tracking-[-0.21px]">{s.name}</p>
+          <p class="text-[19px] leading-[1.25] font-medium tracking-[-0.21px]">{s.name}</p>
           <p class="text-[14px] leading-normal whitespace-pre-line text-navy/60">{s.description}</p>
         </div>
       </div>
